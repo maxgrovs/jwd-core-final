@@ -11,16 +11,24 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     Long id;
     String name;
 
+    public AbstractBaseEntity(Long id, String name) {
+
+        this.id = id;
+        this.name = name;
+    }
 
     @Override
     public Long getId() {
         // todo
-        return null;
+        return id;
     }
 
     @Override
     public String getName() {
         // todo
-        return null;
+        return name;
     }
+
+
+
 }
