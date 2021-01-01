@@ -10,10 +10,10 @@ public class CrewMemberFactory implements EntityFactory<CrewMember> {
     public CrewMember create(Object... args) {
 
         return CrewMember.builder()
-                .id((Long) args[0])
-                .name(String.valueOf(args[1]))
-                .role((Long) args[2])
-                .rank((Long) args[3])
+
+                .name(String.valueOf(args[0]))
+                .role((Long) args[1])
+                .rank((Long) args[2])
                 .build();
     }
 }

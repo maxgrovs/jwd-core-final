@@ -8,12 +8,12 @@ package com.epam.jwd.core_final.domain;
  */
 public abstract class AbstractBaseEntity implements BaseEntity {
 
-    Long id;
+    static Long id;
     String name;
 
-    public AbstractBaseEntity(Long id, String name) {
+    public AbstractBaseEntity(String name) {
 
-        this.id = id;
+        id++;
         this.name = name;
     }
 
@@ -28,7 +28,6 @@ public abstract class AbstractBaseEntity implements BaseEntity {
         // todo
         return name;
     }
-
 
 
 }

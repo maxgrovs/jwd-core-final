@@ -14,8 +14,8 @@ public class CrewMember extends AbstractBaseEntity {
     Rank rank;
     Boolean isReadyForNextMissions;
 
-    public CrewMember(Long id, String name, Role role, Rank rank) {
-        super(id, name);
+    public CrewMember(String name, Role role, Rank rank) {
+        super(name);
         this.role = role;
         this.rank = rank;
         this.isReadyForNextMissions = true;
@@ -49,16 +49,11 @@ public class CrewMember extends AbstractBaseEntity {
     }
 
     public static class Builder {
-        Long id;
+
         String name;
         Role role;
         Rank rank;
         // Boolean isReadyForNextMissions;
-
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
 
         public Builder name(String name) {
             this.name = name;
@@ -84,7 +79,7 @@ public class CrewMember extends AbstractBaseEntity {
 
         public CrewMember build() {
             return new CrewMember(
-                    this.id,
+
                     this.name,
                     this.role,
                     this.rank
