@@ -16,19 +16,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         //--Application.start();
 
-        //------------------------------------------------
 
 
-        //************************
 
-        String keys = "#role,name,rank;role,name,rank;role,name,rank;";
-        keys = keys.substring(1);
-
-        String[] membersFilds = keys.split(";");
-
-        String values = "4,Davey Bentley,2;1,Zoe Day,1;3,Petra Potter,4;";
-
-        String[] membersValues = values.split(";");
 
 
         //--------------------------------------------------
@@ -65,11 +55,9 @@ public class Main {
 
         }
 
-        //System.out.println(input.substring(1));*/
+        //System.out.println(input.substring(1));
 
-
-
-        System.out.println("fkfkf");
+        //------------------------------------------------
 
     }
 }
