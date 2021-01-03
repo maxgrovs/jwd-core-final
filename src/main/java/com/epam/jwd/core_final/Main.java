@@ -18,23 +18,7 @@ public class Main {
 
         //------------------------------------------------
 
-        CrewMemberFactory factory = new CrewMemberFactory();
 
-        File resources = Paths.get("resources", "input", "crew").toFile();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(resources))) {
-
-            List<CrewMember> crewMemberList = Arrays.stream(reader.lines()
-                    .collect(Collectors.toList())
-                    .get(1).split(";"))
-                    .collect(Collectors.toList()).stream()
-                    .map(s -> s.split(","))
-                    .map(factory::create)
-                    .collect(Collectors.toList());
-           /* crewMemberList
-                    .forEach(System.out::println);*/
-
-        }
         //************************
 
         String keys = "#role,name,rank;role,name,rank;role,name,rank;";
@@ -45,9 +29,6 @@ public class Main {
         String values = "4,Davey Bentley,2;1,Zoe Day,1;3,Petra Potter,4;";
 
         String[] membersValues = values.split(";");
-
-        /*Arrays.stream(membersFilds)
-                .*/
 
 
         //--------------------------------------------------
@@ -84,9 +65,11 @@ public class Main {
 
         }
 
-        //System.out.println(input.substring(1));
+        //System.out.println(input.substring(1));*/
 
 
+
+        System.out.println("fkfkf");
 
     }
 }
