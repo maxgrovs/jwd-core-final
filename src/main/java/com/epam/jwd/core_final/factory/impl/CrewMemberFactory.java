@@ -7,12 +7,13 @@ import com.epam.jwd.core_final.factory.EntityFactory;
 public class CrewMemberFactory implements EntityFactory<CrewMember> {
 
     @Override
-    public CrewMember create(Object... args) {
+    public CrewMember create(String... args) {
+
 
         return CrewMember.builder()
-                .role((Long) args[0])
+                .role(Long.valueOf( args[0]))
                 .name(String.valueOf(args[1]))
-                .rank((Long) args[2])
+                .rank(Long.valueOf(args[2]))
                 .build();
     }
 }

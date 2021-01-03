@@ -7,11 +7,11 @@ import java.util.List;
  * Expected fields:
  * <p>
  * missions name {@link String}
- * start date {@link java.time.LocalDate}
- * end date {@link java.time.LocalDate}
+ * start date {@link LocalDate}
+ * end date {@link LocalDate}
  * distance {@link Long} - missions distance
  * assignedSpaceShift {@link Spaceship} - not defined by default
- * assignedCrew {@link java.util.List<CrewMember>} - list of missions members based on ship capacity - not defined by default
+ * assignedCrew {@link List<CrewMember>} - list of missions members based on ship capacity - not defined by default
  * missionResult {@link MissionResult}
  */
 public class FlightMission extends AbstractBaseEntity {
@@ -25,8 +25,8 @@ public class FlightMission extends AbstractBaseEntity {
     List<CrewMember> assignedCrew;
     MissionResult missionResult;
 
-    public FlightMission(Long id, String name, String missionsName, LocalDate startDate, LocalDate endDate, Long missionsDistance, Spaceship assignedSpaceShift, List<CrewMember> assignedCrew, MissionResult missionResult) {
-        super(id, name);
+    public FlightMission(String name, String missionsName, LocalDate startDate, LocalDate endDate, Long missionsDistance, Spaceship assignedSpaceShift, List<CrewMember> assignedCrew, MissionResult missionResult) {
+        super(name);
         this.missionsName = missionsName;
         this.startDate = startDate;
         this.endDate = endDate;

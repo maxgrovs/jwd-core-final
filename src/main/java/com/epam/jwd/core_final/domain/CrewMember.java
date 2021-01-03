@@ -10,16 +10,18 @@ package com.epam.jwd.core_final.domain;
 public class CrewMember extends AbstractBaseEntity {
     // todo
 
-    Role role;
-    Rank rank;
-    Boolean isReadyForNextMissions;
+    private Role role;
+    private Rank rank;
+    private Boolean isReadyForNextMissions;
 
-    public CrewMember(String name, Role role, Rank rank) {
+    private CrewMember(String name, Role role, Rank rank) {
         super(name);
         this.role = role;
         this.rank = rank;
         this.isReadyForNextMissions = true;
     }
+
+
 
     public Role getRole() {
         return role;
@@ -54,6 +56,12 @@ public class CrewMember extends AbstractBaseEntity {
         Role role;
         Rank rank;
         // Boolean isReadyForNextMissions;
+
+
+        public Builder id() {
+
+            return this;
+        }
 
         public Builder name(String name) {
             this.name = name;
