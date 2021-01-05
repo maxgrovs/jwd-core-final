@@ -15,7 +15,6 @@ public abstract class AbstractBaseEntity implements BaseEntity {
 
     public AbstractBaseEntity(String name) {
 
-
         id = count++;
 
         this.name = name;

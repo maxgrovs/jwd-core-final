@@ -31,7 +31,7 @@ public class MainTest {
 
 //****************************************
 
-           /*try (BufferedReader reader = new BufferedReader(new FileReader(resources))) {
+           try (BufferedReader reader = new BufferedReader(new FileReader(resources))) {
 
             List<CrewMember> crewMemberList = Arrays.stream(reader.lines()
                     .collect(Collectors.toList())
@@ -43,10 +43,10 @@ public class MainTest {
             crewMemberList
                     .forEach(System.out::println);
 
-        }*/
+        }
 //****************************************
 
-        String keys = "#role,name,rank;role,name,rank;role,name,rank;";
+        /*String keys = "#role,name,rank;role,name,rank;role,name,rank;";
         keys = keys.substring(1);
 
         String[] membersKeys = keys.split(";");
@@ -72,10 +72,9 @@ public class MainTest {
 
         }
 
-        //  membersMapList.forEach(System.out::println);
+          membersMapList.forEach(System.out::println);*/
 
  //******************************************************
-
 
 
 
