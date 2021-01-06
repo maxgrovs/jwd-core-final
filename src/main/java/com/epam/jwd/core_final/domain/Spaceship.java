@@ -14,11 +14,38 @@ public class Spaceship extends AbstractBaseEntity {
     Long flightDistance;
     Boolean isReadyForNextMissions;
 
-    public Spaceship(String name, Map<Role, Short> crew, Long flightDistance, Boolean isReadyForNextMissions) {
+    public Spaceship(String name, Long flightDistance, Map<Role, Short> crew) {
         super(name);
         this.crew = crew;
         this.flightDistance = flightDistance;
         this.isReadyForNextMissions = isReadyForNextMissions;
+    }
+
+    public Map<Role, Short> getCrew() {
+        return crew;
+    }
+
+    public Long getFlightDistance() {
+        return flightDistance;
+    }
+
+    public Boolean getReadyForNextMissions() {
+        return isReadyForNextMissions;
+    }
+
+    @Override
+    public String toString() {
+        return "Spaceship{" +
+                "crew=" + crew +
+                ", flightDistance=" + flightDistance +
+                ", isReadyForNextMissions=" + isReadyForNextMissions +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public static Spaceship.Builder builder() {
+        return new Spaceship.Builder();
     }
 
     public static class Builder {
@@ -38,15 +65,38 @@ public class Spaceship extends AbstractBaseEntity {
             return this;
         }
 
-        public Builder crew(Long id, String count) {
+        public Builder crew(String crew) {
 
-            Map<Role, Short> crew = new HashMap<>();
+            Map<Role, Short> crewMap = new HashMap<>();
 
+            String s1 = crew.substring(1, crew.length() - 1);
 
+            String[] s2 = s1.split(",");
 
-            this.crew = crew;
+            for (String s3 : s2) {
+
+                String[] data = s3.split(":");
+
+                Long roleId = Long.valueOf(data[0]);
+                Short countCrewMember = Short.valueOf(data[1]);
+
+                crewMap.put(Role.resolveRoleById(roleId), countCrewMember);
+
+            }
+
+            this.crew = crewMap;
 
             return this;
+        }
+
+        public Spaceship build() {
+            return new Spaceship(
+
+                    this.name,
+                    this.flightDistance,
+                    this.crew
+                    // this.isReadyForNextMissions
+            );
         }
     }
 }

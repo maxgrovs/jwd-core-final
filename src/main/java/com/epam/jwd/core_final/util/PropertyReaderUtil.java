@@ -9,6 +9,9 @@ public final class PropertyReaderUtil {
     private static final Properties properties = new Properties();
 
     private PropertyReaderUtil() {
+
+
+
     }
 
     /**
