@@ -1,5 +1,9 @@
 package com.epam.jwd.core_final.domain;
 
+import com.epam.jwd.core_final.criteria.Criteria;
+
+import java.util.Objects;
+
 /**
  * Expected fields:
  * <p>
@@ -7,12 +11,16 @@ package com.epam.jwd.core_final.domain;
  * rank {@link Rank} - member rank
  * isReadyForNextMissions {@link Boolean} - true by default. Set to false, after first failed mission
  */
-public class CrewMember extends AbstractBaseEntity {
+public class CrewMember extends AbstractBaseEntity{
     // todo
 
     private Role role;
     private Rank rank;
     private Boolean isReadyForNextMissions;
+
+    public CrewMember(String name) {
+        super(name);
+    }
 
     private CrewMember(String name, Role role, Rank rank) {
         super(name);
@@ -20,8 +28,6 @@ public class CrewMember extends AbstractBaseEntity {
         this.rank = rank;
         this.isReadyForNextMissions = true;
     }
-
-
 
     public Role getRole() {
         return role;
@@ -33,6 +39,24 @@ public class CrewMember extends AbstractBaseEntity {
 
     public Boolean getReadyForNextMissions() {
         return isReadyForNextMissions;
+    }
+
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CrewMember that = (CrewMember) o;
+        return role == that.role &&
+                rank == that.rank &&
+                Objects.equals(isReadyForNextMissions, that.isReadyForNextMissions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, rank, isReadyForNextMissions);
     }
 
     @Override
@@ -49,6 +73,8 @@ public class CrewMember extends AbstractBaseEntity {
     public static Builder builder() {
         return new Builder();
     }
+
+
 
     public static class Builder {
 

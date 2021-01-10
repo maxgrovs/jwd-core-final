@@ -14,11 +14,12 @@ public interface Application {
 
         final NassaAppliactonMenu nassaAppliactonMenu = new NassaAppliactonMenu();
 
-        final Supplier<ApplicationContext> applicationContextSupplier = null; // todo
+        final Supplier<ApplicationContext> applicationContextSupplier = nassaAppliactonMenu::getApplicationContext; // todo
 
-        final NassaContext nassaContext = new NassaContext();
+        final NassaContext nassaContext = NassaContext.getInstance();
 
         nassaContext.init();
-        return applicationContextSupplier::get;
+
+        return () -> applicationContextSupplier.get();
     }
 }

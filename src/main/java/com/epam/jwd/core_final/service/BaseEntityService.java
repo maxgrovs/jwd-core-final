@@ -11,15 +11,20 @@ public class BaseEntityService<T extends BaseEntity> {
 
     private final Class<T> entityClass;
 
+    public Class<T> getEntityClass() {
+        return entityClass;
+    }
+
     protected BaseEntityService(Class<T> entityClass) {
+
         this.entityClass = entityClass;
     }
 
     public Collection<T> findAll() throws IOException {
 
-        final ApplicationContext applicationContext = new NassaContext();
+        final ApplicationContext applicationContext = NassaContext.getInstance();
 
-        Collection<T> entityList = applicationContext.retrieveBaseEntityList(entityClass);
+        Collection<T> entityList = applicationContext.retrieveBaseEntityList(this.entityClass);
 
         return entityList;
     }

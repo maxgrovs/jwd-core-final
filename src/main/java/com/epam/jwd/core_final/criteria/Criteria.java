@@ -7,4 +7,19 @@ import com.epam.jwd.core_final.domain.BaseEntity;
  */
 public abstract class Criteria<T extends BaseEntity> {
 
+    Long id;
+    String name;
+
+
+    public Long getId() {
+        // todo
+        return id;
+    }
+
+
+    public String getName() {
+        // todo
+        return name;
+    }
+
 }

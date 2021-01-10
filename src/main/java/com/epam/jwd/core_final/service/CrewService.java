@@ -15,9 +15,9 @@ public interface CrewService {
 
     List<CrewMember> findAllCrewMembers() throws IOException;
 
-    List<CrewMember> findAllCrewMembersByCriteria(Criteria<? extends CrewMember> criteria);
+    List<CrewMember> findAllCrewMembersByCriteria(Criteria<? extends CrewMember> criteria) throws IOException;
 
-    Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria);
+    Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria) throws IOException;
 
     CrewMember updateCrewMemberDetails(CrewMember crewMember);
 

@@ -3,6 +3,7 @@ package com.epam.jwd.core_final.service;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.domain.Spaceship;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
  */
 public interface SpaceshipService {
 
-    List<Spaceship> findAllSpaceships();
+    List<Spaceship> findAllSpaceships() throws IOException;
 
     List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria);
 

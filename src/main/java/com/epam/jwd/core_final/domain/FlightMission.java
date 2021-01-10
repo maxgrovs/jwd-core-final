@@ -17,7 +17,6 @@ import java.util.List;
 public class FlightMission extends AbstractBaseEntity {
     // todo
 
-    String missionsName;
     LocalDate startDate;
     LocalDate endDate;
     Long missionsDistance;
@@ -25,14 +24,75 @@ public class FlightMission extends AbstractBaseEntity {
     List<CrewMember> assignedCrew;
     MissionResult missionResult;
 
-    public FlightMission(String name, String missionsName, LocalDate startDate, LocalDate endDate, Long missionsDistance, Spaceship assignedSpaceShift, List<CrewMember> assignedCrew, MissionResult missionResult) {
+    public FlightMission(String name, LocalDate startDate, LocalDate endDate, Long missionsDistance, Spaceship assignedSpaceShift, List<CrewMember> assignedCrew, MissionResult missionResult) {
         super(name);
-        this.missionsName = missionsName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.missionsDistance = missionsDistance;
         this.assignedSpaceShift = assignedSpaceShift;
         this.assignedCrew = assignedCrew;
         this.missionResult = missionResult;
+    }
+
+    public static FlightMission.Builder builder() {
+        return new FlightMission.Builder();
+    }
+
+    public static class Builder {
+        String name;
+        LocalDate startDate;
+        LocalDate endDate;
+        Long missionsDistance;
+        Spaceship assignedSpaceShift;
+        List<CrewMember> assignedCrew;
+        MissionResult missionResult;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder startDate(LocalDate startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public Builder endDate(LocalDate endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+
+        public Builder missionsDistance(Long missionsDistance) {
+            this.missionsDistance = missionsDistance;
+            return this;
+        }
+
+        public Builder assignedSpaceShift(Spaceship assignedSpaceShift) {
+            this.assignedSpaceShift = assignedSpaceShift;
+            return this;
+        }
+
+        public Builder assignedCrew(List<CrewMember> assignedCrew) {
+            this.assignedCrew = assignedCrew;
+            return this;
+        }
+
+        public Builder missionResult(MissionResult missionResult) {
+            this.missionResult = missionResult;
+            return this;
+        }
+
+        public FlightMission build() {
+            return new FlightMission(
+
+                    this.name,
+                    this.startDate,
+                    this.endDate,
+                    this.missionsDistance,
+                    this.assignedSpaceShift,
+                    this.assignedCrew,
+                    this.missionResult
+            );
+        }
     }
 }

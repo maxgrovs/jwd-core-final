@@ -18,7 +18,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -29,18 +28,28 @@ public class NassaContext implements ApplicationContext {
     private Collection<CrewMember> crewMembers = new ArrayList<>();
     private Collection<Spaceship> spaceships = new ArrayList<>();
 
+
+    private NassaContext() {
+    }
+
+    private static final NassaContext INSTANCE = new NassaContext();
+
+    public static NassaContext getInstance() {
+        return INSTANCE;
+    }
+
     @Override
-    public <T extends BaseEntity> Collection<T> retrieveBaseEntityList(Class<T> tClass) throws IOException {
+    public <T extends BaseEntity> Collection<T> retrieveBaseEntityList(Class<T> tClass) {
 
         Collection<T> result = new ArrayList<>();
 
-        if (tClass.getSimpleName().equals("CrewMember")) {
-            result = (Collection<T>) crewMembers;
-        }else
-            if (tClass.getSimpleName().equals("Spaceship")){
+        if (tClass.equals(CrewMember.class)) {
+            result = (Collection<T>) this.crewMembers;
+        } else if (tClass.getSimpleName().equals("Spaceship")) {
 
             result = (Collection<T>) spaceships;
         }
+
         return result;
     }
 
@@ -50,17 +59,48 @@ public class NassaContext implements ApplicationContext {
      * @throws InvalidStateException
      */
     @Override
-    public void init() throws InvalidStateException, IOException {
+    public void init() throws InvalidStateException, java.io.IOException {
 
-        EntityFactory<CrewMember> crewMemberFactory = new CrewMemberFactory();
-        EntityFactory<Spaceship> spaceshipEntityFactory = new SpaceshipFactory();
-
-        File baseOfCrewMembers = Paths.get("src", "resources", "input", "crew").toFile();
         File baseOfSpaceships = Paths.get("src", "resources", "input", "spaceships").toFile();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(baseOfCrewMembers))) {
+        File baseOfCrewMembers = Paths.get("src", "resources", "input", "crew").toFile();
 
-            crewMembers = Arrays.stream(reader.lines()
+        crewMembers = initCrewmember(baseOfCrewMembers);
+
+        spaceships = initSpaceship(baseOfSpaceships);
+
+        //  throw new InvalidStateException();
+    }
+
+
+    public Collection<Spaceship> initSpaceship(File fileSpaceships) throws IOException {
+
+        EntityFactory<Spaceship> spaceshipEntityFactory = new SpaceshipFactory();
+
+
+        Collection<Spaceship> spaceshipList;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileSpaceships))) {
+
+            spaceshipList = reader.lines()
+                    .filter(s -> !s.startsWith("#"))
+                    .map(s -> s.split(";"))
+                    .map(spaceshipEntityFactory::create)
+                    .collect(Collectors.toList());
+
+        }
+
+        return spaceshipList;
+    }
+
+
+    public Collection<CrewMember> initCrewmember(File fileCrewmembers) throws IOException {
+
+        EntityFactory<CrewMember> crewMemberFactory = new CrewMemberFactory();
+
+        Collection<CrewMember> memberList;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileCrewmembers))) {
+
+            memberList = Arrays.stream(reader.lines()
                     .collect(Collectors.toList())
                     .get(1).split(";"))
                     .collect(Collectors.toList()).stream()
@@ -69,20 +109,7 @@ public class NassaContext implements ApplicationContext {
                     .collect(Collectors.toList());
         }
 
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(baseOfSpaceships))) {
-
-            spaceships = reader.lines()
-                    .filter(s -> !s.startsWith("#"))
-                    .map(s -> s.split(";"))
-                    .map(spaceshipEntityFactory::create)
-                    .collect(Collectors.toList());
-
-        }
-
-
-        // final Collection<CrewMember> crewMembers = this.retrieveBaseEntityList(CrewMember.class);
-
-        throw new InvalidStateException();
+        return memberList;
     }
+
 }
