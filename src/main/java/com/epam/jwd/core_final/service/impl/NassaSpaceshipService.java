@@ -24,6 +24,9 @@ public class NassaSpaceshipService extends BaseEntityService<Spaceship> implemen
 
     @Override
     public List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria) {
+
+
+
         return null;
     }
 

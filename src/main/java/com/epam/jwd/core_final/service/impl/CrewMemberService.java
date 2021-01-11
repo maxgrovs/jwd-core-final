@@ -34,8 +34,6 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
 
         List<CrewMember> allCrewMembers = new ArrayList<>(super.findAll());
 
-        allCrewMembers.forEach(System.out::println);
-
         List<CrewMember> crewMemberList = allCrewMembers.stream()
                 .filter(crewMember -> crewMember.getRole().getId().equals(memberCriteria.getRoleId()))
                 .filter(crewMember -> crewMember.getRank().getId().equals(memberCriteria.getRankId()))

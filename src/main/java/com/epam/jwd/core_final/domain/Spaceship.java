@@ -8,7 +8,7 @@ import java.util.Map;
  * flightDistance {@link Long} - total available flight distance
  * isReadyForNextMissions {@link Boolean} - true by default. Set to false, after first failed mission
  */
-public class Spaceship extends AbstractBaseEntity {
+public class    Spaceship extends AbstractBaseEntity {
     //todo
     Map<Role, Short> crew;
     Long flightDistance;
