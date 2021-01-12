@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class NassaSpaceshipService extends BaseEntityService<Spaceship> implements SpaceshipService {
+public class NasaSpaceshipService extends BaseEntityService<Spaceship> implements SpaceshipService {
 
-    public NassaSpaceshipService() {
+    public NasaSpaceshipService() {
         super(Spaceship.class);
     }
 

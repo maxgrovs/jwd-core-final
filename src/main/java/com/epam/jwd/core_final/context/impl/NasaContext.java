@@ -22,19 +22,19 @@ import java.util.stream.Collectors;
 
 
 // todo
-public class NassaContext implements ApplicationContext {
+public class NasaContext implements ApplicationContext {
 
     // no getters/setters for them
     private Collection<CrewMember> crewMembers = new ArrayList<>();
     private Collection<Spaceship> spaceships = new ArrayList<>();
 
 
-    private NassaContext() {
+    private NasaContext() {
     }
 
-    private static final NassaContext INSTANCE = new NassaContext();
+    private static final NasaContext INSTANCE = new NasaContext();
 
-    public static NassaContext getInstance() {
+    public static NasaContext getInstance() {
         return INSTANCE;
     }
 
@@ -45,6 +45,7 @@ public class NassaContext implements ApplicationContext {
 
         if (tClass.equals(CrewMember.class)) {
             result = (Collection<T>) this.crewMembers;
+
         } else if (tClass.getSimpleName().equals("Spaceship")) {
 
             result = (Collection<T>) spaceships;

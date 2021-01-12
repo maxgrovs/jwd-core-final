@@ -1,7 +1,7 @@
 package com.epam.jwd.core_final;
 
 
-import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.context.impl.NasaContext;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
@@ -18,7 +18,7 @@ public class MainTest {
     public void main() throws IOException, InvalidStateException {
 
 
-        final NassaContext nassaContext = NassaContext.getInstance();
+        final NasaContext nassaContext = NasaContext.getInstance();
 
         nassaContext.init();
 

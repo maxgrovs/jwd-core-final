@@ -1,7 +1,7 @@
 package com.epam.jwd.core_final.service;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
-import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.context.impl.NasaContext;
 import com.epam.jwd.core_final.domain.BaseEntity;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class BaseEntityService<T extends BaseEntity> {
 
     public Collection<T> findAll() throws IOException {
 
-        final ApplicationContext applicationContext = NassaContext.getInstance();
+        final ApplicationContext applicationContext = NasaContext.getInstance();
 
         Collection<T> entityList = applicationContext.retrieveBaseEntityList(this.entityClass);
 

@@ -1,7 +1,7 @@
 package com.epam.jwd.core_final.context;
 
-import com.epam.jwd.core_final.context.impl.NassaAppliactonMenu;
-import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.context.impl.NasaAppliactonMenu;
+import com.epam.jwd.core_final.context.impl.NasaContext;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 
 import java.io.IOException;
@@ -12,13 +12,19 @@ public interface Application {
 
     static ApplicationMenu start() throws InvalidStateException, IOException {
 
-        final NassaAppliactonMenu nassaAppliactonMenu = new NassaAppliactonMenu();
+        System.out.println("\nWelcome to NASA!\n");
 
-        final Supplier<ApplicationContext> applicationContextSupplier = nassaAppliactonMenu::getApplicationContext; // todo
+        final NasaAppliactonMenu nasaAppliactonMenu = new NasaAppliactonMenu();
 
-        final NassaContext nassaContext = NassaContext.getInstance();
+        final Supplier<ApplicationContext> applicationContextSupplier = nasaAppliactonMenu::getApplicationContext; // todo
 
-        nassaContext.init();
+        final NasaContext nasaContext = NasaContext.getInstance();
+
+        nasaContext.init();
+
+        int userInput = (int) nasaAppliactonMenu.printAvailableOptions();
+
+        nasaAppliactonMenu.handleUserInput(userInput);
 
         return () -> applicationContextSupplier.get();
     }

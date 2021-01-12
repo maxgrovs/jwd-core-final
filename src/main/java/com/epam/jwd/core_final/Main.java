@@ -2,6 +2,7 @@ package com.epam.jwd.core_final;
 
 import com.epam.jwd.core_final.context.Application;
 
+import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.exception.InvalidStateException;
@@ -20,8 +21,8 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException, InvalidStateException {
-        //  ApplicationMenu start =
-        Application.start();
+
+          ApplicationMenu start = Application.start();
 
 
         //  logger.info("hello world!");

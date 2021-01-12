@@ -1,7 +1,5 @@
 package com.epam.jwd.core_final.service.impl;
 
-import com.epam.jwd.core_final.context.ApplicationContext;
-import com.epam.jwd.core_final.context.impl.NassaContext;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.domain.CrewMember;
@@ -10,7 +8,6 @@ import com.epam.jwd.core_final.service.CrewService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
