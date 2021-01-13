@@ -1,5 +1,7 @@
 package com.epam.jwd.core_final.context;
 
+import com.epam.jwd.core_final.exception.InvalidStateException;
+
 import java.io.IOException;
 
 // todo replace Object with your own types
@@ -12,7 +14,7 @@ public interface ApplicationMenu {
         return null;
     }
 
-    default Object handleUserInput(Integer o) throws IOException {
+    default Object handleUserInput(Integer o) throws IOException, InvalidStateException {
         return null;
     }
 }

@@ -11,14 +11,15 @@ import java.util.Map;
  */
 public class SpaceshipCriteria extends Criteria<Spaceship> {
 
+    private Long id;
+    private Map<Role, Short> crew;
+    private Long flightDistance;
+    private Boolean isReadyForNextMissions;
 
-   private Map<Role, Short> crew;
-   private Long flightDistance;
-   private Boolean isReadyForNextMissions;
-
-    public SpaceshipCriteria(Map<Role, Short> crew, Long flightDistance) {
+    public SpaceshipCriteria(Map<Role, Short> crew, Long flightDistance, Long id) {
         this.crew = crew;
         this.flightDistance = flightDistance;
+        this.id = id;
         //this.isReadyForNextMissions = isReadyForNextMissions;
     }
 
@@ -30,16 +31,22 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         return flightDistance;
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
     public Boolean getReadyForNextMissions() {
         return isReadyForNextMissions;
     }
 
-    public static CrewMemberCriteria.Builder builder() {
-        return new CrewMemberCriteria.Builder();
+    public static SpaceshipCriteria.Builder builder() {
+        return new SpaceshipCriteria.Builder();
     }
 
     public static class Builder {
 
+        private Long id;
         private Map<Role, Short> crew;
         private Long flightDistance;
 
@@ -57,13 +64,19 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         public Builder flightDistance(Long flightDistance) {
             this.flightDistance = flightDistance;
 
-        return this;
+            return this;
         }
 
-        public SpaceshipCriteria build(){
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public SpaceshipCriteria build() {
             return new SpaceshipCriteria(
                     this.crew,
-                    this.flightDistance
+                    this.flightDistance,
+                    this.id
 
             );
 

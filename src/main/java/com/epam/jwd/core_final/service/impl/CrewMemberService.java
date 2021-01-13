@@ -27,16 +27,25 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
     @Override
     public List<CrewMember> findAllCrewMembersByCriteria(Criteria<? extends CrewMember> criteria) throws IOException {
 
-        CrewMemberCriteria memberCriteria  = (CrewMemberCriteria) criteria;
+        CrewMemberCriteria memberCriteria = (CrewMemberCriteria) criteria;
 
         List<CrewMember> allCrewMembers = new ArrayList<>(super.findAll());
 
-        List<CrewMember> crewMemberList = allCrewMembers.stream()
-                .filter(crewMember -> crewMember.getRole().getId().equals(memberCriteria.getRoleId()))
-                .filter(crewMember -> crewMember.getRank().getId().equals(memberCriteria.getRankId()))
-                .collect(Collectors.toList());
+        List<CrewMember> crewMembers = new ArrayList<>();
 
-        return crewMemberList;
+        if (memberCriteria.getRoleId() != null) {
+            crewMembers = allCrewMembers.stream()
+                    .filter(crewMember -> crewMember.getRole().getId().equals(memberCriteria.getRoleId()))
+                    .collect(Collectors.toList());
+        }
+        if (memberCriteria.getRankId() != null){
+            crewMembers =  allCrewMembers.stream()
+                    .filter(crewMember -> crewMember.getRank().getId().equals(memberCriteria.getRankId()))
+                    .collect(Collectors.toList());
+        }
+
+
+        return crewMembers;
     }
 
     @Override

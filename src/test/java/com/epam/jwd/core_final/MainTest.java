@@ -2,6 +2,7 @@ package com.epam.jwd.core_final;
 
 
 import com.epam.jwd.core_final.context.impl.NasaContext;
+import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
@@ -22,12 +23,17 @@ public class MainTest {
 
         nassaContext.init();
 
-
         CrewMemberService  service = new CrewMemberService();
 
         List<CrewMember> allCrewMembers = service.findAllCrewMembers();
 
-        allCrewMembers.forEach(System.out::println);
+       // allCrewMembers.forEach(System.out::println);
+
+        CrewMemberCriteria criteria = CrewMemberCriteria.builder().roleId(4L).build();
+
+        List<CrewMember> allCrewMembersByCriteria = service.findAllCrewMembersByCriteria(criteria);
+
+        allCrewMembersByCriteria.forEach(System.out::println);
 
 
     }

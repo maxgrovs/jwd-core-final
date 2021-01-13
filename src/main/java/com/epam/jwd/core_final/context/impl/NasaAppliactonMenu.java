@@ -2,9 +2,12 @@ package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.context.ApplicationMenu;
+import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
+import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.MissionResult;
 import com.epam.jwd.core_final.domain.Spaceship;
+import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.service.CrewService;
 import com.epam.jwd.core_final.service.MissionService;
 import com.epam.jwd.core_final.service.SpaceshipService;
@@ -21,9 +24,11 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
     CrewService crewService = new CrewMemberService();
     SpaceshipService spaceshipService = new NasaSpaceshipService();
-    NasaMissionService missionService  = new NasaMissionService();
+    NasaMissionService missionService = new NasaMissionService();
+    SpaceshipCriteria spaceshipCriteria;
+    CrewMemberCriteria crewMemberCriteria;
 
-  private final Scanner in = new Scanner(System.in);
+    private final Scanner in = new Scanner(System.in);
 
     @Override
     public ApplicationContext getApplicationContext() {
@@ -43,7 +48,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     }
 
     @Override
-    public Object handleUserInput(Integer input) throws IOException {
+    public Object handleUserInput(Integer input) throws IOException, InvalidStateException {
 
         switch (input) {
             case 1:
@@ -55,18 +60,16 @@ public class NasaAppliactonMenu implements ApplicationMenu {
                 allCrewMembers.forEach(System.out::println);
                 break;
             case 3:
-              //  missionService.createSpaceMission();
-
                 createSpaceMission();
-
                 break;
-
+            default:
+                throw new InvalidStateException();
         }
 
         return null;
     }
 
-    public void createSpaceMission() {
+    public void createSpaceMission() throws IOException {
         String name;
         LocalDate startDate;
         LocalDate endDate;
@@ -81,18 +84,28 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         name = in.nextLine();
 
         System.out.println("Please enter start missions date in format \"yyyy-MM-dd\":");
-        startDate = LocalDate.parse(in.nextLine()) ;
+        startDate = LocalDate.parse(in.nextLine());
 
         System.out.println("Please enter start missions date in format \"yyyy-MM-dd\":");
-        endDate = LocalDate.parse(in.nextLine()) ;
+        endDate = LocalDate.parse(in.nextLine());
 
         System.out.println("Please enter missions distance:");
         missionsDistance = Long.valueOf(in.nextLine());
 
+        System.out.println("Please choice spaceship and enter id:\n");
+        spaceshipCriteria = SpaceshipCriteria.builder().flightDistance(missionsDistance).build();
 
-        //  Integer input = in.nextInt();
+        List<Spaceship> allSpaceshipsByCriteria = spaceshipService.findAllSpaceshipsByCriteria(spaceshipCriteria);
+        allSpaceshipsByCriteria.forEach(System.out::println);
 
-         in.close();
+        spaceshipCriteria = SpaceshipCriteria.builder().id(Long.valueOf(in.nextLine())).build();
+
+        assignedSpaceShift = spaceshipService.findAllSpaceshipsByCriteria(spaceshipCriteria).get(0);
+
+        System.out.println("Please choice crew and enter id:\n");
+       // crewMemberCriteria = CrewMemberCriteria.builder().
+
+                in.close();
 
         //  System.out.println(name + " ");
 
