@@ -26,6 +26,8 @@ public interface Application {
 
         nasaAppliactonMenu.handleUserInput(userInput);
 
+
+
         return () -> applicationContextSupplier.get();
     }
 }
