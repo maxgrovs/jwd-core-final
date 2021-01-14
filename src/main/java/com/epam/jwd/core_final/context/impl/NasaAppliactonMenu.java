@@ -36,37 +36,53 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         return NasaContext.getInstance();
     }
 
+
+
+
+
     @Override
     public Integer printAvailableOptions() {
 
-        System.out.println("Please enter what do you want:\n" +
+        System.out.println("\nPlease enter what do you want:\n" +
                 "1 - show all spaceships\n" +
                 "2 - show all crew members\n" +
-                "3 - create space mission\n");
+                "3 - create space mission\n" +
+                "0 - to exit");
 
         return in.nextInt();
     }
 
     @Override
-    public Object handleUserInput(Integer input) throws IOException, InvalidStateException {
+    public String handleUserInput(Integer input) throws IOException, InvalidStateException {
+
+        String result = "start";
 
         switch (input) {
             case 1:
                 List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
                 allSpaceships.forEach(System.out::println);
+
                 break;
             case 2:
                 List<CrewMember> allCrewMembers = crewService.findAllCrewMembers();
                 allCrewMembers.forEach(System.out::println);
+
                 break;
             case 3:
                 createSpaceMission();
+
+                break;
+
+            case 0:
+                result = "exit";
+
                 break;
             default:
                 throw new InvalidStateException();
         }
 
-        return null;
+
+        return result;
     }
 
     public void createSpaceMission() throws IOException {
@@ -86,7 +102,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         System.out.println("Please enter start missions date in format \"yyyy-MM-dd\":");
         startDate = LocalDate.parse(in.nextLine());
 
-        System.out.println("Please enter start missions date in format \"yyyy-MM-dd\":");
+        System.out.println("Please enter end missions date in format \"yyyy-MM-dd\":");
         endDate = LocalDate.parse(in.nextLine());
 
         System.out.println("Please enter missions distance:");
@@ -102,12 +118,13 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         assignedSpaceShift = spaceshipService.findAllSpaceshipsByCriteria(spaceshipCriteria).get(0);
 
-        System.out.println("Please choice crew and enter id:\n");
+        System.out.println("Please choice crew members and enter id:\n");
        // crewMemberCriteria = CrewMemberCriteria.builder().
 
                 in.close();
 
         //  System.out.println(name + " ");
+
 
 
     }
