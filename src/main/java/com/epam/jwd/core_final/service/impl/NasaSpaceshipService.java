@@ -49,8 +49,25 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
     }
 
     @Override
-    public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria) {
-        return Optional.empty();
+    public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria) throws IOException {
+
+        SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
+
+        ArrayList<Spaceship> allSpaceships = new ArrayList<>(super.findAll());
+
+        List<Spaceship> spaceships = new ArrayList<>();
+
+        if (spaceshipCriteria.getId() != null) {
+            spaceships = allSpaceships.stream()
+                    .filter(spaceship -> spaceship.getId().equals(spaceshipCriteria.getId()))
+                    .collect(Collectors.toList());
+        }
+
+        Optional<Spaceship> spaceship = spaceships.size() != 0 ? Optional.of(spaceships.get(0)) : Optional.empty();
+
+       // System.out.println();
+
+        return spaceship;
     }
 
     @Override

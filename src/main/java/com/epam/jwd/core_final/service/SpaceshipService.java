@@ -17,7 +17,7 @@ public interface SpaceshipService {
 
     List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria) throws IOException;
 
-    Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria);
+    Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria) throws IOException;
 
     Spaceship updateSpaceshipDetails(Spaceship spaceship);
 

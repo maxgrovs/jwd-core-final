@@ -2,34 +2,46 @@ package com.epam.jwd.core_final.service.impl;
 
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.Criteria;
+import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.service.BaseEntityService;
 import com.epam.jwd.core_final.service.CrewService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CrewMemberService extends BaseEntityService<CrewMember> implements CrewService {
 
+    CrewMemberCriteria memberCriteria;
+
     public CrewMemberService() {
         super(CrewMember.class);
     }
 
     @Override
-    public List<CrewMember> findAllCrewMembers() throws IOException {
+    public List<CrewMember> findAllCrewMembers() {
 
-        return new ArrayList<>(super.findAll());
+        List<CrewMember> crewMembers = null;
+
+        try {
+            crewMembers =  new ArrayList<>(super.findAll());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return crewMembers;
     }
 
     @Override
-    public List<CrewMember> findAllCrewMembersByCriteria(Criteria<? extends CrewMember> criteria) throws IOException {
+    public List<CrewMember> findAllCrewMembersByCriteria(Criteria<? extends CrewMember> criteria) {
 
-        CrewMemberCriteria memberCriteria = (CrewMemberCriteria) criteria;
+        memberCriteria = (CrewMemberCriteria) criteria;
 
-        List<CrewMember> allCrewMembers = new ArrayList<>(super.findAll());
+        List<CrewMember> allCrewMembers = findAllCrewMembers();
 
         List<CrewMember> crewMembers = new ArrayList<>();
 
@@ -38,8 +50,8 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
                     .filter(crewMember -> crewMember.getRole().getId().equals(memberCriteria.getRoleId()))
                     .collect(Collectors.toList());
         }
-        if (memberCriteria.getRankId() != null){
-            crewMembers =  allCrewMembers.stream()
+        if (memberCriteria.getRankId() != null) {
+            crewMembers = allCrewMembers.stream()
                     .filter(crewMember -> crewMember.getRank().getId().equals(memberCriteria.getRankId()))
                     .collect(Collectors.toList());
         }
@@ -49,13 +61,37 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
     }
 
     @Override
-    public Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria) throws IOException {
+    public Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria){
 
-        /*List<CrewMember> allCrewMembers = findAllCrewMembers();
+        memberCriteria = (CrewMemberCriteria) criteria;
 
-        allCrewMembers.forEach(System.out::println);*/
+        List<CrewMember> allCrewMembers = findAllCrewMembers();
 
-        return Optional.empty();
+        List<CrewMember> crewMembers = new ArrayList<>();
+
+        if (memberCriteria.getId() != null) {
+            crewMembers = allCrewMembers.stream()
+                    .filter(crewMember -> crewMember.getId().equals(memberCriteria.getId()))
+                    .collect(Collectors.toList());
+        }
+
+        Optional<CrewMember> crewMember = crewMembers.size() != 0 ? Optional.of(crewMembers.get(0)) : Optional.empty();
+
+        return crewMember;
+    }
+
+    public List<CrewMember> choiceCrewMembers(String ids) {
+        String[] idArray = ids.split(",");
+
+        List<CrewMember> pilots = Arrays.stream(idArray)
+                .mapToLong(Long::parseLong)
+                .mapToObj(id -> findCrewMemberByCriteria(CrewMemberCriteria.builder().roleId(id).build()))
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        System.out.println();
+
+        return pilots;
     }
 
     @Override
@@ -65,6 +101,7 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
 
     @Override
     public void assignCrewMemberOnMission(CrewMember crewMember) throws RuntimeException {
+
 
     }
 
