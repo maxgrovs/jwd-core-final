@@ -8,8 +8,6 @@ import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.MissionResult;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.InvalidStateException;
-import com.epam.jwd.core_final.service.CrewService;
-import com.epam.jwd.core_final.service.MissionService;
 import com.epam.jwd.core_final.service.SpaceshipService;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
 import com.epam.jwd.core_final.service.impl.NasaMissionService;
@@ -18,7 +16,6 @@ import com.epam.jwd.core_final.service.impl.NasaSpaceshipService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class NasaAppliactonMenu implements ApplicationMenu {
@@ -54,11 +51,22 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         System.out.println("\nWelcome to NASA!\n");
         String restartMenu = "start";
 
-        while (restartMenu.equals("start")) {
+        while (!restartMenu.equals("exit")) {
 
-            int userInput = (int) printAvailableOptions(options);
+            String userInput =  printAvailableOptions(options);
 
-            restartMenu = handleUserInput(userInput);
+            switch (options){
+                case "\nPlease enter what do you want:\n" +
+                        "1 - show all spaceships\n" +
+                        "2 - show all crew members\n" +
+                        "3 - create space mission\n" +
+                        "0 - to exit":
+
+                    restartMenu = handleUserInput(userInput);
+
+                    break;
+            }
+
 
         }
 
@@ -66,11 +74,11 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
 
     @Override
-    public Integer printAvailableOptions(String options) {
+    public String printAvailableOptions(String options) {
 
         System.out.println(options);
 
-        return in.nextInt();
+        return in.nextLine();
     }
 
     public String printMissionOptions() {//""""""""""""""""""""""""""""""""""""""
@@ -86,27 +94,27 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
 
     @Override
-    public String handleUserInput(Integer input) throws IOException, InvalidStateException {
+    public String handleUserInput(String input) throws IOException, InvalidStateException {
 
         String result = "start";
 
         switch (input) {
-            case 1:
+            case "1":
                 List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
                 allSpaceships.forEach(System.out::println);
 
                 break;
-            case 2:
+            case "2":
                 List<CrewMember> allCrewMembers = crewService.findAllCrewMembers();
                 allCrewMembers.forEach(System.out::println);
 
                 break;
-            case 3:
+            case "3":
                 options = missionMenu;
 
                 break;
 
-            case 0:
+            case "0":
                 result = "exit";
 
                 break;

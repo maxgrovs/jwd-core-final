@@ -10,11 +10,11 @@ public interface ApplicationMenu {
 
     ApplicationContext getApplicationContext();
 
-    default Integer printAvailableOptions(String s) {
+    default String printAvailableOptions(String s) {
         return null;
     }
 
-    default Object handleUserInput(Integer o) throws IOException, InvalidStateException {
+    default String handleUserInput(String o) throws IOException, InvalidStateException {
         return null;
     }
 }
