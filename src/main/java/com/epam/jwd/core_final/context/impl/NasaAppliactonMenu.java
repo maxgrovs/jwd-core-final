@@ -37,6 +37,11 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             "3 - create space mission\n" +
             "0 - to exit";
 
+    String missionMenu = "Mission menu";
+
+
+    String options = mainMenu;
+
     @Override
     public ApplicationContext getApplicationContext() {
 
@@ -51,7 +56,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         while (restartMenu.equals("start")) {
 
-            int userInput = (int) printAvailableOptions(mainMenu);
+            int userInput = (int) printAvailableOptions(options);
 
             restartMenu = handleUserInput(userInput);
 
@@ -97,7 +102,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
                 break;
             case 3:
-                handleMissions(printMissionOptions());
+                options = missionMenu;
 
                 break;
 
