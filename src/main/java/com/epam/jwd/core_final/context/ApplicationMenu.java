@@ -10,7 +10,7 @@ public interface ApplicationMenu {
 
     ApplicationContext getApplicationContext();
 
-    default Integer printAvailableOptions() {
+    default Integer printAvailableOptions(String s) {
         return null;
     }
 

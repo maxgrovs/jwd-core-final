@@ -31,6 +31,12 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
     private final Scanner in = new Scanner(System.in);
 
+    String mainMenu = "\nPlease enter what do you want:\n" +
+            "1 - show all spaceships\n" +
+            "2 - show all crew members\n" +
+            "3 - create space mission\n" +
+            "0 - to exit";
+
     @Override
     public ApplicationContext getApplicationContext() {
 
@@ -38,17 +44,41 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     }
 
 
-    @Override
-    public Integer printAvailableOptions() {
+    public void startMainMenu() throws IOException, InvalidStateException {
 
-        System.out.println("\nPlease enter what do you want:\n" +
-                "1 - show all spaceships\n" +
-                "2 - show all crew members\n" +
-                "3 - create space mission\n" +
-                "0 - to exit");
+        System.out.println("\nWelcome to NASA!\n");
+        String restartMenu = "start";
+
+        while (restartMenu.equals("start")) {
+
+            int userInput = (int) printAvailableOptions(mainMenu);
+
+            restartMenu = handleUserInput(userInput);
+
+        }
+
+    }
+
+
+    @Override
+    public Integer printAvailableOptions(String options) {
+
+        System.out.println(options);
 
         return in.nextInt();
     }
+
+    public String printMissionOptions() {//""""""""""""""""""""""""""""""""""""""
+
+        System.out.println("command");
+
+        return in.nextLine();
+    }
+
+    public void handleMissions(String input) {
+        System.out.println(input);
+    }
+
 
     @Override
     public String handleUserInput(Integer input) throws IOException, InvalidStateException {
@@ -67,7 +97,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
                 break;
             case 3:
-                createSpaceMission();
+                handleMissions(printMissionOptions());
 
                 break;
 
@@ -124,7 +154,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         crewMemberCriteria = CrewMemberCriteria.builder().roleId(3L).build();
         crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
 
-     //   System.out.println("\nYour choice is: " + assignedSpaceShift.toString());
+        //   System.out.println("\nYour choice is: " + assignedSpaceShift.toString());
 
         System.out.println("\nPlease choice pilots:\n");
 

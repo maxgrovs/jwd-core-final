@@ -24,12 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InvalidStateException {
 
-      //  ApplicationMenu start = Application.start();
-
-
-        CrewMemberService memberService = new CrewMemberService();
-
-        List<CrewMember> crewMembers = memberService.choiceCrewMembers("78,80");
+       ApplicationMenu start = Application.start();
 
 
 

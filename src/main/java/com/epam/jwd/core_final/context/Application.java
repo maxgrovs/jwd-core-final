@@ -12,8 +12,6 @@ public interface Application {
 
     static ApplicationMenu start() throws InvalidStateException, IOException {
 
-        System.out.println("\nWelcome to NASA!\n");
-        String restartMenu = "start";
 
         final NasaAppliactonMenu nasaAppliactonMenu = new NasaAppliactonMenu();
 
@@ -23,13 +21,7 @@ public interface Application {
 
         nasaContext.init();
 
-        while (restartMenu.equals("start")){
-
-            int userInput = (int) nasaAppliactonMenu.printAvailableOptions();
-
-            restartMenu = nasaAppliactonMenu.handleUserInput(userInput);
-
-        }
+        nasaAppliactonMenu.startMainMenu();
 
         return applicationContextSupplier::get;
 
