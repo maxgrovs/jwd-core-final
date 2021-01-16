@@ -24,10 +24,12 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InvalidStateException {
 
-        ApplicationMenu start = Application.start();
+      //  ApplicationMenu start = Application.start();
 
 
+        CrewMemberService memberService = new CrewMemberService();
 
+        List<CrewMember> crewMembers = memberService.choiceCrewMembers("78,80");
 
 
 
@@ -42,10 +44,10 @@ public class Main {
         }*/
 
 
-            //  logger.info("hello world!");
-
-
-        }
+        //  logger.info("hello world!");
 
 
     }
+
+
+}

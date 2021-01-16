@@ -29,7 +29,7 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
         List<CrewMember> crewMembers = null;
 
         try {
-            crewMembers =  new ArrayList<>(super.findAll());
+            crewMembers = new ArrayList<>(super.findAll());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
     }
 
     @Override
-    public Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria){
+    public Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria) {
 
         memberCriteria = (CrewMemberCriteria) criteria;
 
@@ -82,17 +82,32 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
 
     public List<CrewMember> choiceCrewMembers(String ids) {
         String[] idArray = ids.split(",");
+        List<CrewMember> pilots = new ArrayList<>();
 
-        List<CrewMember> pilots = Arrays.stream(idArray)
+        /*pilots = Arrays.stream(idArray)
                 .mapToLong(Long::parseLong)
                 .mapToObj(id -> findCrewMemberByCriteria(CrewMemberCriteria.builder().roleId(id).build()))
                 .map(Optional::get)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
-        System.out.println();
+     //   CrewMember crewMemberByCriteria1 = cheakCrewMember(idArray[0]);
+
+
+        System.out.println("test");
 
         return pilots;
     }
+
+   /* private CrewMember cheakCrewMember(String nm) {
+        Optional<CrewMember> crewMemberByCriteria = findCrewMemberByCriteria(CrewMemberCriteria.builder().roleId(Long.getLong(nm)).build());
+
+        if ( crewMemberByCriteria.isPresent()){
+
+            CrewMember crewMember = crewMemberByCriteria.get();
+
+        };
+        return crewMember;
+    }*/
 
     @Override
     public CrewMember updateCrewMemberDetails(CrewMember crewMember) {
