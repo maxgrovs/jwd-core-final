@@ -93,6 +93,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     Spaceship assignedSpaceShift = null;
     List<CrewMember> assignedCrew = null;
     MissionResult missionResult;
+    String [] missionDetails;
     //---------------------
 
     CrewMemberService crewService = new CrewMemberService();
@@ -193,8 +194,13 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             endDate = LocalDate.parse(input);
             System.out.println();
 
-            System.out.println(name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
-                    assignedSpaceShift + ";" + assignedCrew);
+            String mission = name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
+                    assignedSpaceShift + ";" + assignedCrew;
+
+            System.out.println(mission);
+
+            missionDetails = mission.split(";");
+
         }
 
 

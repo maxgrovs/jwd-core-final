@@ -19,10 +19,18 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
     }
 
     @Override
-    public List<Spaceship> findAllSpaceships() throws IOException {
+    public List<Spaceship> findAllSpaceships() {
 
-        return new ArrayList<>(super.findAll());
+        List<Spaceship> spaceships = null;
+
+        try {
+            spaceships = new ArrayList<>(super.findAll());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    return spaceships;
     }
+
 
     @Override
     public List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria) throws IOException {
@@ -49,11 +57,11 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
     }
 
     @Override
-    public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria) throws IOException {
+    public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria)  {
 
         SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
 
-        ArrayList<Spaceship> allSpaceships = new ArrayList<>(super.findAll());
+        ArrayList<Spaceship> allSpaceships = new ArrayList<>(findAllSpaceships());
 
         List<Spaceship> spaceships = new ArrayList<>();
 

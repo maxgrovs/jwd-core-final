@@ -1,1 +1,13 @@
-ddddddd;2021-01-19;2021-12-12;300000;Spaceship{crew={PILOT=2, MISSION_SPECIALIST=7, FLIGHT_ENGINEER=7, COMMANDER=2}, flightDistance=162029, isReadyForNextMissions=null, id=128, name='HWSS Orion'};[CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=78, name='Maximus Brandt'}, CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=80, name='Maisy Perez'}, CrewMember{role=MISSION_SPECIALIST, rank=TRAINEE, isReadyForNextMissions=true, id=87, name='Dani Sykes'}, CrewMember{role=MISSION_SPECIALIST, rank=CAPTAIN, isReadyForNextMissions=true, id=88, name='Jermaine Hester'}, CrewMember{role=FLIGHT_ENGINEER, rank=CAPTAIN, isReadyForNextMissions=true, id=97, name='Sally Gonzales'}, CrewMember{role=FLIGHT_ENGINEER, rank=TRAINEE, isReadyForNextMissions=true, id=99, name='Britney Dunn'}, CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=96, name='Matthew Sheehan'}]
+#name;startDate;endDate;missionsDistance;assignedSpaceShift;assignedCrew;missionResult
+ddd;
+2021-01-20;
+2021-12-12;
+300000;
+Spaceship{crew={PILOT=2, MISSION_SPECIALIST=7, FLIGHT_ENGINEER=7, COMMANDER=2}, flightDistance=162029, isReadyForNextMissions=true, id=128, name='HWSS Orion'};
+[CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=78, name='Maximus Brandt'},
+CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=80, name='Maisy Perez'},
+CrewMember{role=MISSION_SPECIALIST, rank=CAPTAIN, isReadyForNextMissions=true, id=88, name='Jermaine Hester'},
+CrewMember{role=MISSION_SPECIALIST, rank=SECOND_OFFICER, isReadyForNextMissions=true, id=98, name='Jordyn Henson'},
+CrewMember{role=FLIGHT_ENGINEER, rank=CAPTAIN, isReadyForNextMissions=true, id=97, name='Sally Gonzales'},
+CrewMember{role=FLIGHT_ENGINEER, rank=TRAINEE, isReadyForNextMissions=true, id=99, name='Britney Dunn'},
+CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=100, name='Shayan Mclellan'}]
