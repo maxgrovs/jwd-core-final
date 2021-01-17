@@ -24,19 +24,18 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InvalidStateException {
 
-       ApplicationMenu start = Application.start();
+      //  ApplicationMenu start = Application.start();
 
 
+        File mission = Paths.get("src", "resources", "output", "missions").toFile();
 
-        /*File mission = Paths.get("src", "resources", "output", "mission").toFile();
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(mission))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(mission, true))) {
 
             String s = "Hello Grovs!";
 
-            writer.write(s);
+            writer.write(s + "\n");
 
-        }*/
+        }
 
 
         //  logger.info("hello world!");

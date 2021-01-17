@@ -15,12 +15,11 @@ import com.epam.jwd.core_final.service.impl.NasaSpaceshipService;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class NasaAppliactonMenu implements ApplicationMenu {
 
-    CrewMemberService crewService = new CrewMemberService();
     SpaceshipService spaceshipService = new NasaSpaceshipService();
     NasaMissionService missionService = new NasaMissionService();
     SpaceshipCriteria spaceshipCriteria;
@@ -34,10 +33,19 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             "3 - create space mission\n" +
             "0 - to exit";
 
-    String missionMenu = "Mission menu";
+    String fetchMissionName = "Please enter missions name:";
+    String fetchMissionsDistance = "\nPlease enter missions distance:";
+    String fetchSpaceShip = "\nPlease choice spaceship and enter id:\n";
+    String fetchPilots = "\nPlease choice pilots:\n";
+    String fetchMissionSpecialists = "\nPlease choice mission specialists:\n";
+    String fetchFlightEngineers = "\nPlease choice flight engineer:\n";
+    String fetchCommanders = "\nPlease choice commanders:\n";
+    String fetchStartDate = "\nPlease enter start date:\n";
+    String fetchEndDate = "\nPlease enter end date:\n";
 
 
     String options = mainMenu;
+    String restartMenu = "start";
 
     @Override
     public ApplicationContext getApplicationContext() {
@@ -49,47 +57,148 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     public void startMainMenu() throws IOException, InvalidStateException {
 
         System.out.println("\nWelcome to NASA!\n");
-        String restartMenu = "start";
+
 
         while (!restartMenu.equals("exit")) {
 
-            String userInput =  printAvailableOptions(options);
+            System.out.println(options);
 
-            switch (options){
-                case "\nPlease enter what do you want:\n" +
-                        "1 - show all spaceships\n" +
-                        "2 - show all crew members\n" +
-                        "3 - create space mission\n" +
-                        "0 - to exit":
+            String userInput = printAvailableOptions(options);
 
-                    restartMenu = handleUserInput(userInput);
+            if (options.equals(mainMenu)) {
 
-                    break;
+                handleUserInput(userInput);
+
+            } else {
+                options = handleMissions(userInput);
+
             }
-
-
         }
-
     }
 
 
     @Override
     public String printAvailableOptions(String options) {
 
-        System.out.println(options);
+        //  System.out.println(options);
 
         return in.nextLine();
     }
 
-    public String printMissionOptions() {//""""""""""""""""""""""""""""""""""""""
+    //---------------------
+    String name;
+    LocalDate startDate;
+    LocalDate endDate;
+    Long missionsDistance;
+    Spaceship assignedSpaceShift = null;
+    List<CrewMember> assignedCrew = null;
+    MissionResult missionResult;
+    //---------------------
 
-        System.out.println("command");
+    CrewMemberService crewService = new CrewMemberService();
 
-        return in.nextLine();
-    }
+    public String handleMissions(String input) throws IOException {
 
-    public void handleMissions(String input) {
-        System.out.println(input);
+        String nextOptions = mainMenu;
+
+        if (options.equals(fetchMissionName)) {
+            name = input;
+            nextOptions = fetchMissionsDistance;
+        }
+        if (options.equals(fetchMissionsDistance)) {
+            missionsDistance = Long.valueOf(input);
+
+            spaceshipCriteria = SpaceshipCriteria.builder().flightDistance(missionsDistance).build();
+
+            List<Spaceship> allSpaceshipsByCriteria = spaceshipService.findAllSpaceshipsByCriteria(spaceshipCriteria);
+            allSpaceshipsByCriteria.forEach(System.out::println);
+
+            nextOptions = fetchSpaceShip;
+        }
+        if (options.equals(fetchSpaceShip)) {
+
+            spaceshipCriteria = SpaceshipCriteria.builder().id(Long.valueOf(input)).build();
+            Optional<Spaceship> spaceshipByCriteria = spaceshipService.findSpaceshipByCriteria(spaceshipCriteria);
+
+            assignedSpaceShift = spaceshipByCriteria.get();
+            System.out.println(assignedSpaceShift);
+            System.out.println();
+
+            crewMemberCriteria = CrewMemberCriteria.builder().roleId(3L).build();
+            crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
+
+            nextOptions = fetchPilots;
+        }
+        if (options.equals(fetchPilots)) {
+
+            List<CrewMember> crewMembers = crewService.choiceCrewMembers(input);
+            crewMembers.forEach(System.out::println);
+            System.out.println();
+
+            assignedCrew = new ArrayList<>(crewMembers);
+
+            crewMemberCriteria = CrewMemberCriteria.builder().roleId(1L).build();
+            crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
+
+            nextOptions = fetchMissionSpecialists;
+
+        }
+        if (options.equals(fetchMissionSpecialists)) {
+
+            List<CrewMember> crewMembers = crewService.choiceCrewMembers(input);
+            crewMembers.forEach(System.out::println);
+            System.out.println();
+
+            assignedCrew.addAll(crewMembers);
+
+            crewMemberCriteria = CrewMemberCriteria.builder().roleId(2L).build();
+            crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
+
+            nextOptions = fetchFlightEngineers;
+        }
+        if (options.equals(fetchFlightEngineers)) {
+
+            List<CrewMember> crewMembers = crewService.choiceCrewMembers(input);
+            crewMembers.forEach(System.out::println);
+            System.out.println();
+
+            assignedCrew.addAll(crewMembers);
+
+            crewMemberCriteria = CrewMemberCriteria.builder().roleId(4L).build();
+            crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
+
+            nextOptions = fetchCommanders;
+
+        }
+        if (options.equals(fetchCommanders)) {
+
+            List<CrewMember> crewMembers = crewService.choiceCrewMembers(input);
+            crewMembers.forEach(System.out::println);
+            System.out.println();
+
+            assignedCrew.addAll(crewMembers);
+            assignedCrew.forEach(System.out::println);
+
+            nextOptions = fetchStartDate;
+        }
+        if (options.equals(fetchStartDate)) {
+
+            startDate = LocalDate.parse(input);
+            System.out.println();
+
+            nextOptions = fetchEndDate;
+        }
+        if (options.equals(fetchEndDate)) {
+
+            endDate = LocalDate.parse(input);
+            System.out.println();
+
+            System.out.println(name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
+                    assignedSpaceShift + ";" + assignedCrew);
+        }
+
+
+        return nextOptions;
     }
 
 
@@ -110,12 +219,12 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
                 break;
             case "3":
-                options = missionMenu;
+                options = fetchMissionName;
 
                 break;
 
             case "0":
-                result = "exit";
+                restartMenu = "exit";
 
                 break;
             default:
@@ -127,64 +236,6 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     }
 
     public void createSpaceMission() throws IOException {
-        String name;
-        LocalDate startDate;
-        LocalDate endDate;
-        Long missionsDistance;
-        Spaceship assignedSpaceShift = null;
-        List<CrewMember> assignedCrew;
-        MissionResult missionResult;
-
-        Scanner in = new Scanner(System.in);
-
-       /* System.out.println("Please enter missions name:");
-        name = in.nextLine();
-
-        System.out.println("\nPlease enter start missions date in format \"yyyy-MM-dd\":");
-        startDate = LocalDate.parse(in.nextLine());
-
-        System.out.println("\nPlease enter end missions date in format \"yyyy-MM-dd\":");
-        endDate = LocalDate.parse(in.nextLine());*/
-
-        /*System.out.println("\nPlease enter missions distance:");
-        missionsDistance = Long.valueOf(in.nextLine());
-
-
-        spaceshipCriteria = SpaceshipCriteria.builder().flightDistance(missionsDistance).build();
-
-        List<Spaceship> allSpaceshipsByCriteria = spaceshipService.findAllSpaceshipsByCriteria(spaceshipCriteria);
-        allSpaceshipsByCriteria.forEach(System.out::println);
-
-        System.out.println("\nPlease choice spaceship and enter id:\n");
-
-        spaceshipCriteria = SpaceshipCriteria.builder().id(Long.valueOf(in.nextLine())).build();
-        Optional<Spaceship> spaceshipByCriteria = spaceshipService.findSpaceshipByCriteria(spaceshipCriteria);
-
-        assignedSpaceShift = spaceshipByCriteria.get();*/
-
-        System.out.println("\nPlease choice crew members and enter their id:\n");
-
-        crewMemberCriteria = CrewMemberCriteria.builder().roleId(3L).build();
-        crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
-
-        //   System.out.println("\nYour choice is: " + assignedSpaceShift.toString());
-
-        System.out.println("\nPlease choice pilots:\n");
-
-
-        List<CrewMember> pilots = crewService.choiceCrewMembers(in.nextLine()); // dont work!
-
-       /* crewMemberCriteria = CrewMemberCriteria.builder().roleId(1L).build();
-        crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);*/
-
-       /* System.out.println("\nPlease choice mission specialists:\n");
-        List<CrewMember> specialists = crewService.choiceCrewMembers(in.nextLine());*/
-        //
-
-        in.close();
-
-        //  System.out.println(name + " ");
-
 
     }
 

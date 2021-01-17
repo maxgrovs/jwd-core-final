@@ -46,34 +46,6 @@ public class NasaMissionService extends BaseEntityService<FlightMission> impleme
         return null;
     }
 
-    public String createSpaceMission(){
-
-        String name;
-        LocalDate startDate;
-        LocalDate endDate;
-        Long missionsDistance;
-        Spaceship assignedSpaceShift;
-        List<CrewMember> assignedCrew;
-        MissionResult missionResult;
-
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("Please enter missions name:\n");
-
-        in.nextLine();
-
-        System.out.println("Please enter start missions date:\n");
-
-        // startDate = LocalDate.parse(in.nextLine()) ;
-
-        //  Integer input = in.nextInt();
-
-         in.close();
-
-        //  System.out.println(name + " ");
 
 
-
-        return null;
-    }
 }

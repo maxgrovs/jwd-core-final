@@ -84,16 +84,11 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
         String[] idArray = ids.split(",");
         List<CrewMember> pilots = new ArrayList<>();
 
-        /*pilots = Arrays.stream(idArray)
+        pilots = Arrays.stream(idArray)
                 .mapToLong(Long::parseLong)
-                .mapToObj(id -> findCrewMemberByCriteria(CrewMemberCriteria.builder().roleId(id).build()))
+                .mapToObj(id -> findCrewMemberByCriteria(CrewMemberCriteria.builder().id(id).build()))
                 .map(Optional::get)
-                .collect(Collectors.toList());*/
-
-     //   CrewMember crewMemberByCriteria1 = cheakCrewMember(idArray[0]);
-
-
-        System.out.println("test");
+                .collect(Collectors.toList());
 
         return pilots;
     }
