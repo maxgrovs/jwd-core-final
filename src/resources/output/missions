@@ -1,13 +1,3 @@
-#name;startDate;endDate;missionsDistance;assignedSpaceShift;assignedCrew;missionResult
-ddd;
-2021-01-20;
-2021-12-12;
-300000;
-Spaceship{crew={PILOT=2, MISSION_SPECIALIST=7, FLIGHT_ENGINEER=7, COMMANDER=2}, flightDistance=162029, isReadyForNextMissions=true, id=128, name='HWSS Orion'};
-[CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=78, name='Maximus Brandt'},
-CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=80, name='Maisy Perez'},
-CrewMember{role=MISSION_SPECIALIST, rank=CAPTAIN, isReadyForNextMissions=true, id=88, name='Jermaine Hester'},
-CrewMember{role=MISSION_SPECIALIST, rank=SECOND_OFFICER, isReadyForNextMissions=true, id=98, name='Jordyn Henson'},
-CrewMember{role=FLIGHT_ENGINEER, rank=CAPTAIN, isReadyForNextMissions=true, id=97, name='Sally Gonzales'},
-CrewMember{role=FLIGHT_ENGINEER, rank=TRAINEE, isReadyForNextMissions=true, id=99, name='Britney Dunn'},
-CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=100, name='Shayan Mclellan'}]
+#name;startDate;endDate;missionsDistance;assignedSpaceShift;assignedCrew;id;missionResult
+conquest of mars;2021-01-19;2021-01-29;300000;Spaceship{crew={FLIGHT_ENGINEER=8, MISSION_SPECIALIST=4, PILOT=4, COMMANDER=2}, flightDistance=4870, isReadyForNextMissions=true, id=103, name='Philadelphia'};[CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=78, name='Maximus Brandt'}, CrewMember{role=MISSION_SPECIALIST, rank=CAPTAIN, isReadyForNextMissions=true, id=88, name='Jermaine Hester'}, CrewMember{role=FLIGHT_ENGINEER, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=85, name='Carwyn Simmons'}, CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=100, name='Shayan Mclellan'}];131;PLANNED
+walking the moon;2021-01-19;2021-01-22;200000;Spaceship{crew={FLIGHT_ENGINEER=7, MISSION_SPECIALIST=5, PILOT=4, COMMANDER=1}, flightDistance=107011, isReadyForNextMissions=true, id=107, name='LWSS Ural'};[CrewMember{role=PILOT, rank=SECOND_OFFICER, isReadyForNextMissions=true, id=93, name='Serenity Gamble'}, CrewMember{role=MISSION_SPECIALIST, rank=SECOND_OFFICER, isReadyForNextMissions=true, id=98, name='Jordyn Henson'}, CrewMember{role=FLIGHT_ENGINEER, rank=TRAINEE, isReadyForNextMissions=true, id=99, name='Britney Dunn'}, CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=96, name='Matthew Sheehan'}];131;PLANNED

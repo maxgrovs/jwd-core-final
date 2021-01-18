@@ -34,6 +34,24 @@ public class FlightMission extends AbstractBaseEntity {
         this.missionResult = missionResult;
     }
 
+
+    @Override
+    public String toString() {
+        /*return "FlightMission{" +
+                "name='" + name +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", missionsDistance=" + missionsDistance +
+                ", assignedSpaceShift=" + assignedSpaceShift +
+                ", assignedCrew=" + assignedCrew +
+                ", missionResult=" + missionResult +
+                ", id=" + id + '\'' +
+                '}';*/
+
+        return name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
+                assignedSpaceShift + ";" + assignedCrew + ";" + id + ";" + missionResult;
+    }
+
     public static FlightMission.Builder builder() {
         return new FlightMission.Builder();
     }

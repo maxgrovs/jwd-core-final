@@ -9,6 +9,11 @@ import com.epam.jwd.core_final.service.BaseEntityService;
 import com.epam.jwd.core_final.service.CrewService;
 import com.epam.jwd.core_final.service.MissionService;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +51,16 @@ public class NasaMissionService extends BaseEntityService<FlightMission> impleme
         return null;
     }
 
+    public void writeMissionToFile(FlightMission flightMission) throws IOException {
 
+        File mission = Paths.get("src", "resources", "output", "missions").toFile();
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(mission, true))) {
+
+            String s = flightMission.toString();
+
+            writer.write("\n" + s);
+
+        }
+    }
 }

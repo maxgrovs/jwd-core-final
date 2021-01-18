@@ -5,8 +5,10 @@ import com.epam.jwd.core_final.context.Application;
 import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 
+import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,34 +27,28 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InvalidStateException {
 
-      //  ApplicationMenu start = Application.start();
+        ApplicationMenu start = Application.start();
 
-
-       /* String s = "[CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=78, name='Maximus Brandt'}," +
+        String mission = "dddd;" +
+                "2021-01-18;" +
+                "2021-01-19;" +
+                "300000;" +
+                "Spaceship{crew={FLIGHT_ENGINEER=7, MISSION_SPECIALIST=7, PILOT=2, COMMANDER=2}, " +
+                "flightDistance=162029, isReadyForNextMissions=true, id=128, name='HWSS Orion'};" +
+                "[CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=78, name='Maximus Brandt'}, " +
                 "CrewMember{role=PILOT, rank=FIRST_OFFICER, isReadyForNextMissions=true, id=80, name='Maisy Perez'}, " +
-                "CrewMember{role=MISSION_SPECIALIST, rank=CAPTAIN, isReadyForNextMissions=true, id=88, name='Jermaine Hester'}, " +
-                "CrewMember{role=MISSION_SPECIALIST, rank=SECOND_OFFICER, isReadyForNextMissions=true, id=98, name='Jordyn Henson'}, " +
-                "CrewMember{role=FLIGHT_ENGINEER, rank=CAPTAIN, isReadyForNextMissions=true, id=97, name='Sally Gonzales'}, " +
+                "CrewMember{role=MISSION_SPECIALIST, rank=SECOND_OFFICER, isReadyForNextMissions=true, id=98, " +
+                "name='Jordyn Henson'}, " +
                 "CrewMember{role=FLIGHT_ENGINEER, rank=TRAINEE, isReadyForNextMissions=true, id=99, name='Britney Dunn'}, " +
-                "CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=100, name='Shayan Mclellan'}]";
+                "CrewMember{role=COMMANDER, rank=TRAINEE, isReadyForNextMissions=true, id=100, name='Shayan Mclellan'}]\n";
 
-        s= s.substring(1);
+        String[] missionsDetails = mission.split(";");
 
-        String[] crewMembers = s.split("CrewMember");
+        MissionFactory missionFactory = new MissionFactory();
 
-        for (String s1 : crewMembers
-        ){
-            System.out.println(s1);
-        }*/
+        FlightMission flightMission = missionFactory.create(missionsDetails);
 
-
-        /*String s = "Spaceship{crew={PILOT=2, MISSION_SPECIALIST=7, FLIGHT_ENGINEER=7, COMMANDER=2}, flightDistance=162029, isReadyForNextMissions=true, id=128, name='HWSS Orion'}";
-
-        String[] split = s.split(",");
-
-        for (String s1 : split) {
-            System.out.println(s1);
-        }*/
+        System.out.println(flightMission);
 
 
         /*File mission = Paths.get("src", "resources", "output", "missions").toFile();

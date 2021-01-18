@@ -5,9 +5,11 @@ import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.MissionResult;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.InvalidStateException;
+import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.service.SpaceshipService;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
 import com.epam.jwd.core_final.service.impl.NasaMissionService;
@@ -24,6 +26,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     NasaMissionService missionService = new NasaMissionService();
     SpaceshipCriteria spaceshipCriteria;
     CrewMemberCriteria crewMemberCriteria;
+    MissionFactory missionFactory = new MissionFactory();
 
     private final Scanner in = new Scanner(System.in);
 
@@ -93,7 +96,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     Spaceship assignedSpaceShift = null;
     List<CrewMember> assignedCrew = null;
     MissionResult missionResult;
-    String [] missionDetails;
+    String[] missionDetails;
     //---------------------
 
     CrewMemberService crewService = new CrewMemberService();
@@ -197,9 +200,13 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             String mission = name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
                     assignedSpaceShift + ";" + assignedCrew;
 
-            System.out.println(mission);
-
             missionDetails = mission.split(";");
+
+            FlightMission flightMission = missionFactory.create(missionDetails);
+
+            System.out.println(flightMission);
+
+            missionService.writeMissionToFile(flightMission);
 
         }
 

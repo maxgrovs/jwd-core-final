@@ -30,9 +30,10 @@ public class MissionFactory implements EntityFactory<FlightMission> {
     public FlightMission create(String... args) {
 
         String[] spaceShipDetails = args[4].split(",");
-        Long id = Long.valueOf(spaceShipDetails[6].substring(3));
+        Long id = Long.valueOf(spaceShipDetails[6].substring(4));
 
         spaceshipCriteria = SpaceshipCriteria.builder().id(id).build();
+
         Spaceship spaceship = spaceshipService.findSpaceshipByCriteria(spaceshipCriteria).get();
 
         String crewDetails = args[5].substring(1);
@@ -40,14 +41,16 @@ public class MissionFactory implements EntityFactory<FlightMission> {
         String[] crewMembers = crewDetails.split("CrewMember");
 
         List<CrewMember> crewMemberList = Arrays.stream(crewMembers)
+                .skip(1)
                 .map(s -> s.split(","))
-                .map(strings -> strings[3].substring(3))
+                .map(strings -> strings[3].substring(4))
                 .map(Long::valueOf)
                 .map(ids -> memberService.findCrewMemberByCriteria(CrewMemberCriteria.builder().id(ids).build()))
                 .map(Optional::get)
                 .collect(Collectors.toList());
 
-        return FlightMission.builder()
+
+        FlightMission flightMission = FlightMission.builder()
                 .name(args[0])
                 .startDate(LocalDate.parse(args[1]))
                 .endDate(LocalDate.parse(args[2]))
@@ -57,6 +60,8 @@ public class MissionFactory implements EntityFactory<FlightMission> {
                 .missionResult(MissionResult.PLANNED)
 
                 .build();
+
+        return flightMission;
     }
 
 
