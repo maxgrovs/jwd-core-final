@@ -14,10 +14,13 @@ import com.epam.jwd.core_final.service.SpaceshipService;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
 import com.epam.jwd.core_final.service.impl.NasaMissionService;
 import com.epam.jwd.core_final.service.impl.NasaSpaceshipService;
+import com.sun.javafx.iio.ImageStorageException;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class NasaAppliactonMenu implements ApplicationMenu {
@@ -57,9 +60,9 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     }
 
 
-    public void startMainMenu() throws IOException, InvalidStateException {
+    public void startMainMenu() throws IOException {
 
-        System.out.println("\nWelcome to NASA!\n");
+        System.out.println("\nWelcome to NASA!");
 
 
         while (!restartMenu.equals("exit")) {
@@ -70,10 +73,19 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
             if (options.equals(mainMenu)) {
 
-                handleUserInput(userInput);
+                try {
+                    handleUserInput(userInput);
+                } catch (InvalidStateException e) {
+                    System.err.println(e);
+                }
 
             } else {
-                options = handleMissions(userInput);
+
+                try {
+                    options = handleMissions(userInput);
+                } catch (InvalidStateException e) {
+                    System.err.println(e);
+                }
 
             }
         }
@@ -101,15 +113,26 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
     CrewMemberService crewService = new CrewMemberService();
 
-    public String handleMissions(String input) throws IOException {
+    public String handleMissions(String input) throws IOException, InvalidStateException {
 
         String nextOptions = mainMenu;
 
         if (options.equals(fetchMissionName)) {
-            name = input;
+
+            if (!input.equals("")) {
+                name = input;
+            } else {
+                throw new InvalidStateException("Please enter correct features!");
+            }
+
             nextOptions = fetchMissionsDistance;
         }
         if (options.equals(fetchMissionsDistance)) {
+
+            if (!Pattern.matches("[0-9]+", input)) {
+                throw new InvalidStateException("Please enter correct features!");
+            }
+
             missionsDistance = Long.valueOf(input);
 
             spaceshipCriteria = SpaceshipCriteria.builder().flightDistance(missionsDistance).build();
@@ -187,14 +210,27 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         }
         if (options.equals(fetchStartDate)) {
 
-            startDate = LocalDate.parse(input);
+          //  if (!Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", input)) {
+
+           //     throw new DateTimeParseException("kjkj", input, 0 );
+
+              //  System.err.println("Please enter date in format: yyyy-mm-dd!");
+          //  }
+
+                startDate = LocalDate.parse(input);
+
+
             System.out.println();
 
             nextOptions = fetchEndDate;
         }
         if (options.equals(fetchEndDate)) {
 
-            endDate = LocalDate.parse(input);
+            try {
+                endDate = LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                System.err.println("Please enter date in format: yyyy-mm-dd!");
+            }
             System.out.println();
 
             String mission = name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
@@ -241,7 +277,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
                 break;
             default:
-                throw new InvalidStateException();
+                throw new InvalidStateException("Please enter correct features!");
         }
 
 
