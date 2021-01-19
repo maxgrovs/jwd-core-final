@@ -210,15 +210,11 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         }
         if (options.equals(fetchStartDate)) {
 
-          //  if (!Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", input)) {
+            if (!Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", input)) {
+                throw new InvalidStateException("Please enter date in format: yyyy-mm-dd!");
+            }
 
-           //     throw new DateTimeParseException("kjkj", input, 0 );
-
-              //  System.err.println("Please enter date in format: yyyy-mm-dd!");
-          //  }
-
-                startDate = LocalDate.parse(input);
-
+            startDate = LocalDate.parse(input);
 
             System.out.println();
 
@@ -226,11 +222,12 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         }
         if (options.equals(fetchEndDate)) {
 
-            try {
-                endDate = LocalDate.parse(input);
-            } catch (DateTimeParseException e) {
-                System.err.println("Please enter date in format: yyyy-mm-dd!");
+            if (!Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", input)) {
+                throw new InvalidStateException("Please enter date in format: yyyy-mm-dd!");
             }
+
+            endDate = LocalDate.parse(input);
+
             System.out.println();
 
             String mission = name + ";" + startDate + ";" + endDate + ";" + missionsDistance + ";" +
