@@ -64,5 +64,6 @@ public class MissionFactory implements EntityFactory<FlightMission> {
         return flightMission;
     }
 
+   // MissionResult fetchMissionResult()
 
 }

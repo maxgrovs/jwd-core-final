@@ -27,8 +27,11 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
     SpaceshipService spaceshipService = new NasaSpaceshipService();
     NasaMissionService missionService = new NasaMissionService();
+    CrewMemberService crewService = new CrewMemberService();
+
     SpaceshipCriteria spaceshipCriteria;
     CrewMemberCriteria crewMemberCriteria;
+
     MissionFactory missionFactory = new MissionFactory();
 
     private final Scanner in = new Scanner(System.in);
@@ -37,6 +40,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             "1 - show all spaceships\n" +
             "2 - show all crew members\n" +
             "3 - create space mission\n" +
+            "4 - find all space missions" +
             "0 - to exit";
 
     String fetchMissionName = "Please enter missions name:";
@@ -52,6 +56,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
     String options = mainMenu;
     String restartMenu = "start";
+
 
     @Override
     public ApplicationContext getApplicationContext() {
@@ -99,7 +104,6 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         return in.nextLine();
     }
-
     //---------------------
     String name;
     LocalDate startDate;
@@ -109,9 +113,46 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     List<CrewMember> assignedCrew = null;
     MissionResult missionResult;
     String[] missionDetails;
+
     //---------------------
 
-    CrewMemberService crewService = new CrewMemberService();
+    @Override
+    public String handleUserInput(String input) throws IOException, InvalidStateException {
+
+        String result = "start";
+
+        switch (input) {
+            case "1":
+                List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
+                allSpaceships.forEach(System.out::println);
+
+                break;
+            case "2":
+                List<CrewMember> allCrewMembers = crewService.findAllCrewMembers();
+                allCrewMembers.forEach(System.out::println);
+
+                break;
+            case "3":
+                options = fetchMissionName;
+
+                break;
+
+            case "4":
+                List<FlightMission> missions = missionService.findAllMissions();
+                missions.forEach(System.out::println);
+                break;
+
+            case "0":
+                restartMenu = "exit";
+
+                break;
+            default:
+                throw new InvalidStateException("Please enter correct features!");
+        }
+
+
+        return result;
+    }
 
     public String handleMissions(String input) throws IOException, InvalidStateException {
 
@@ -247,39 +288,6 @@ public class NasaAppliactonMenu implements ApplicationMenu {
         return nextOptions;
     }
 
-
-    @Override
-    public String handleUserInput(String input) throws IOException, InvalidStateException {
-
-        String result = "start";
-
-        switch (input) {
-            case "1":
-                List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
-                allSpaceships.forEach(System.out::println);
-
-                break;
-            case "2":
-                List<CrewMember> allCrewMembers = crewService.findAllCrewMembers();
-                allCrewMembers.forEach(System.out::println);
-
-                break;
-            case "3":
-                options = fetchMissionName;
-
-                break;
-
-            case "0":
-                restartMenu = "exit";
-
-                break;
-            default:
-                throw new InvalidStateException("Please enter correct features!");
-        }
-
-
-        return result;
-    }
 
     public void createSpaceMission() throws IOException {
 
