@@ -1,5 +1,6 @@
 package com.epam.jwd.core_final.service.impl;
 
+import com.epam.jwd.core_final.context.impl.NasaAppliactonMenu;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.Spaceship;
@@ -14,8 +15,10 @@ import java.util.stream.Collectors;
 
 public class NasaSpaceshipService extends BaseEntityService<Spaceship> implements SpaceshipService {
 
+
     public NasaSpaceshipService() {
         super(Spaceship.class);
+
     }
 
     @Override
@@ -28,6 +31,8 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return spaceships;
     }
 
@@ -38,6 +43,7 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
         SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
 
         ArrayList<Spaceship> allSpaceships = new ArrayList<>(super.findAll());
+        //  ArrayList<Spaceship> allSpaceships = new ArrayList<>(appliactonMenu.getAllContextSpaceships());
 
         List<Spaceship> spaceships = new ArrayList<>();
 
@@ -52,7 +58,7 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
                     .filter(spaceship -> spaceship.getId().equals(spaceshipCriteria.getId()))
                     .collect(Collectors.toList());
         }
-        if (spaceshipCriteria.getReadyForNextMissions() != null){
+        if (spaceshipCriteria.getReadyForNextMissions() != null) {
 
             spaceships = allSpaceships.stream()
                     .filter(spaceship -> spaceship.getReadyForNextMissions().equals(spaceshipCriteria.getReadyForNextMissions()))
@@ -60,7 +66,7 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
 
         }
 
-            return spaceships;
+        return spaceships;
     }
 
     @Override
@@ -69,6 +75,7 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
         SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
 
         ArrayList<Spaceship> allSpaceships = new ArrayList<>(findAllSpaceships());
+        //  ArrayList<Spaceship> allSpaceships = new ArrayList<>(appliactonMenu.getAllContextSpaceships());
 
         List<Spaceship> spaceships = new ArrayList<>();
 
@@ -99,4 +106,6 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
     public Spaceship createSpaceship(Spaceship spaceship) throws RuntimeException {
         return null;
     }
+
+
 }

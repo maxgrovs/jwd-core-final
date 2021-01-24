@@ -13,7 +13,7 @@ public interface Application {
     static ApplicationMenu start() throws InvalidStateException, IOException {
 
 
-        final NasaAppliactonMenu nasaAppliactonMenu = new NasaAppliactonMenu();
+        final NasaAppliactonMenu nasaAppliactonMenu = NasaAppliactonMenu.getInstance();
 
         final Supplier<ApplicationContext> applicationContextSupplier = nasaAppliactonMenu::getApplicationContext; // todo
 

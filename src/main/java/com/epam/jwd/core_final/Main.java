@@ -4,6 +4,7 @@ import com.epam.jwd.core_final.context.Application;
 import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 
+import com.epam.jwd.core_final.service.impl.NasaSpaceshipService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
@@ -18,6 +19,8 @@ public class Main {
 
         //  logger.info("hello world!");
 
+//        NasaSpaceshipService spaceshipService = new NasaSpaceshipService();
+//        spaceshipService.spaceshipList.forEach(System.out::println);
 
     }
 

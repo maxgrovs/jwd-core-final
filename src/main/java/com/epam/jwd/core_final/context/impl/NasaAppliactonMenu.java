@@ -10,22 +10,33 @@ import com.epam.jwd.core_final.domain.MissionResult;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
-import com.epam.jwd.core_final.service.SpaceshipService;
 import com.epam.jwd.core_final.service.impl.CrewMemberService;
 import com.epam.jwd.core_final.service.impl.NasaMissionService;
 import com.epam.jwd.core_final.service.impl.NasaSpaceshipService;
-import com.sun.javafx.iio.ImageStorageException;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
 
 public class NasaAppliactonMenu implements ApplicationMenu {
 
-    SpaceshipService spaceshipService = new NasaSpaceshipService();
+    private NasaAppliactonMenu() {
+    }
+
+    private static final NasaAppliactonMenu INSTANCE = new NasaAppliactonMenu();
+
+    public static NasaAppliactonMenu getInstance() {
+        return INSTANCE;
+    }
+
+
+    NasaSpaceshipService spaceshipService = new NasaSpaceshipService();
     NasaMissionService missionService = new NasaMissionService();
     CrewMemberService crewService = new CrewMemberService();
 
@@ -33,6 +44,8 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     CrewMemberCriteria crewMemberCriteria;
 
     MissionFactory missionFactory = new MissionFactory();
+
+    List<Spaceship> allContextSpaceships;
 
     private final Scanner in = new Scanner(System.in);
 
@@ -69,6 +82,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         System.out.println("\nWelcome to NASA!");
 
+        allContextSpaceships = spaceshipService.findAllSpaceships();
 
         while (!restartMenu.equals("exit")) {
 
@@ -104,6 +118,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         return in.nextLine();
     }
+
     //---------------------
     String name;
     LocalDate startDate;
@@ -123,8 +138,11 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         switch (input) {
             case "1":
-                List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
-                allSpaceships.forEach(System.out::println);
+
+                allContextSpaceships.forEach(System.out::println);
+
+               /* List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
+                allSpaceships.forEach(System.out::println);*/
 
                 break;
             case "2":
@@ -142,7 +160,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
                 missionService.printMissions(missions);
 
-              //  missions.forEach(System.out::println);
+                //  missions.forEach(System.out::println);
                 break;
 
             case "0":
