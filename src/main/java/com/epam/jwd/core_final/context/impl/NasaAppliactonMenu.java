@@ -25,6 +25,15 @@ import java.util.stream.Collectors;
 
 public class NasaAppliactonMenu implements ApplicationMenu {
 
+    private NasaAppliactonMenu() {
+    }
+
+    private static final NasaAppliactonMenu INSTANCE = new NasaAppliactonMenu();
+
+    public static NasaAppliactonMenu getInstance() {
+        return INSTANCE;
+    }
+
     SpaceshipService spaceshipService = new NasaSpaceshipService();
     NasaMissionService missionService = new NasaMissionService();
     CrewMemberService crewService = new CrewMemberService();

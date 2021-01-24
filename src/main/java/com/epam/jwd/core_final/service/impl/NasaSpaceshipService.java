@@ -52,13 +52,13 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
                     .filter(spaceship -> spaceship.getId().equals(spaceshipCriteria.getId()))
                     .collect(Collectors.toList());
         }
-        if (spaceshipCriteria.getReadyForNextMissions() != null){
+       /* if (spaceshipCriteria.getReadyForNextMissions() != null){
 
             spaceships = allSpaceships.stream()
                     .filter(spaceship -> spaceship.getReadyForNextMissions().equals(spaceshipCriteria.getReadyForNextMissions()))
                     .collect(Collectors.toList());
 
-        }
+        }*/
 
             return spaceships;
     }
