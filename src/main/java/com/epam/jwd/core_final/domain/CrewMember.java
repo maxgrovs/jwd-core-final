@@ -41,8 +41,9 @@ public class CrewMember extends AbstractBaseEntity{
         return isReadyForNextMissions;
     }
 
-
-
+    public void setReadyForNextMissions(Boolean readyForNextMissions) {
+        isReadyForNextMissions = readyForNextMissions;
+    }
 
     @Override
     public boolean equals(Object o) {

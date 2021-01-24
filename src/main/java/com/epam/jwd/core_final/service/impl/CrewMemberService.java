@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 public class CrewMemberService extends BaseEntityService<CrewMember> implements CrewService {
 
+    List<CrewMember> allCrewMembers = new ArrayList<>();
+
     CrewMemberCriteria memberCriteria;
 
     public CrewMemberService() {
@@ -56,6 +58,12 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
                     .collect(Collectors.toList());
         }
 
+        if (memberCriteria.getReadyForNextMissions() != null) {
+            crewMembers = allCrewMembers.stream()
+                    .filter(crewMember -> crewMember.getReadyForNextMissions().equals(memberCriteria.getReadyForNextMissions()))
+                    .collect(Collectors.toList());
+        }
+
 
         return crewMembers;
     }
@@ -74,6 +82,11 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
                     .filter(crewMember -> crewMember.getId().equals(memberCriteria.getId()))
                     .collect(Collectors.toList());
         }
+        if (memberCriteria.getReadyForNextMissions() != null) {
+            crewMembers = allCrewMembers.stream()
+                    .filter(crewMember -> crewMember.getReadyForNextMissions().equals(memberCriteria.getReadyForNextMissions()))
+                    .collect(Collectors.toList());
+        }
 
         Optional<CrewMember> crewMember = crewMembers.size() != 0 ? Optional.of(crewMembers.get(0)) : Optional.empty();
 
@@ -88,6 +101,7 @@ public class CrewMemberService extends BaseEntityService<CrewMember> implements 
                 .mapToLong(Long::parseLong)
                 .mapToObj(id -> findCrewMemberByCriteria(CrewMemberCriteria.builder().id(id).build()))
                 .map(Optional::get)
+                .peek(crewMember -> crewMember.setReadyForNextMissions(false))
                 .collect(Collectors.toList());
 
         return pilots;

@@ -197,7 +197,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             System.out.println(assignedSpaceShift);
             System.out.println();
 
-            crewMemberCriteria = CrewMemberCriteria.builder().roleId(3L).build();
+            crewMemberCriteria = CrewMemberCriteria.builder().roleId(3L).isReadyForNextMissions(true).build();
             crewService.findAllCrewMembersByCriteria(crewMemberCriteria).forEach(System.out::println);
 
             nextOptions = fetchPilots;
