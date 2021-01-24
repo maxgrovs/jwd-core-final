@@ -33,11 +33,11 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
 
 
     @Override
-    public List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria) throws IOException {
+    public List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria){
 
         SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
 
-        ArrayList<Spaceship> allSpaceships = new ArrayList<>(super.findAll());
+        List<Spaceship> allSpaceships = findAllSpaceships();
 
         List<Spaceship> spaceships = new ArrayList<>();
 

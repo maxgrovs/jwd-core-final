@@ -34,6 +34,8 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
     MissionFactory missionFactory = new MissionFactory();
 
+    List<Spaceship> spaceshipList;
+
     private final Scanner in = new Scanner(System.in);
 
     String mainMenu = "\nPlease enter what do you want:\n" +
@@ -69,6 +71,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
         System.out.println("\nWelcome to NASA!");
 
+        spaceshipList = spaceshipService.findAllSpaceships();// -------------------------------->
 
         while (!restartMenu.equals("exit")) {
 
@@ -100,10 +103,9 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     @Override
     public String printAvailableOptions(String options) {
 
-        //  System.out.println(options);
-
         return in.nextLine();
     }
+
     //---------------------
     String name;
     LocalDate startDate;
@@ -114,17 +116,24 @@ public class NasaAppliactonMenu implements ApplicationMenu {
     MissionResult missionResult;
     String[] missionDetails;
 
+
+
     //---------------------
 
     @Override
     public String handleUserInput(String input) throws IOException, InvalidStateException {
 
+
+
         String result = "start";
 
         switch (input) {
             case "1":
-                List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
-                allSpaceships.forEach(System.out::println);
+
+                /*List<Spaceship> allSpaceships = spaceshipService.findAllSpaceships();
+                allSpaceships.forEach(System.out::println);*/
+
+                spaceshipList.forEach(System.out::println);
 
                 break;
             case "2":
@@ -142,7 +151,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
                 missionService.printMissions(missions);
 
-              //  missions.forEach(System.out::println);
+                //  missions.forEach(System.out::println);
                 break;
 
             case "0":
