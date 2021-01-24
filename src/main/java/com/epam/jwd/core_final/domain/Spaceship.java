@@ -33,6 +33,10 @@ public class    Spaceship extends AbstractBaseEntity {
         return isReadyForNextMissions;
     }
 
+    public void setReadyForNextMissions(Boolean readyForNextMissions) {
+        isReadyForNextMissions = readyForNextMissions;
+    }
+
     @Override
     public String toString() {
         return "Spaceship{" +
@@ -53,7 +57,7 @@ public class    Spaceship extends AbstractBaseEntity {
         String name;
         Long flightDistance;
         Map<Role, Short> crew;
-
+        Boolean isReadyForNextMissions;
 
         public Builder name(String name) {
             this.name = name;
@@ -86,6 +90,16 @@ public class    Spaceship extends AbstractBaseEntity {
 
             this.crew = crewMap;
 
+            return this;
+        }
+
+        public Builder isReadyForNextMissions(FlightMission flightMission) {
+
+            boolean isReadyForNextMissions = false;
+
+
+
+            this.isReadyForNextMissions = isReadyForNextMissions;
             return this;
         }
 

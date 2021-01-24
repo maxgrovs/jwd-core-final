@@ -40,7 +40,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             "1 - show all spaceships\n" +
             "2 - show all crew members\n" +
             "3 - create space mission\n" +
-            "4 - find all space missions" +
+            "4 - find all space missions\n" +
             "0 - to exit";
 
     String fetchMissionName = "Please enter missions name:";
@@ -139,7 +139,10 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
             case "4":
                 List<FlightMission> missions = missionService.findAllMissions();
-                missions.forEach(System.out::println);
+
+                missionService.printMissions(missions);
+
+              //  missions.forEach(System.out::println);
                 break;
 
             case "0":
@@ -176,7 +179,7 @@ public class NasaAppliactonMenu implements ApplicationMenu {
 
             missionsDistance = Long.valueOf(input);
 
-            spaceshipCriteria = SpaceshipCriteria.builder().flightDistance(missionsDistance).build();
+            spaceshipCriteria = SpaceshipCriteria.builder().flightDistance(missionsDistance).isReadyForNextMissions(true).build();
 
             List<Spaceship> allSpaceshipsByCriteria = spaceshipService.findAllSpaceshipsByCriteria(spaceshipCriteria);
             allSpaceshipsByCriteria.forEach(System.out::println);
@@ -189,6 +192,8 @@ public class NasaAppliactonMenu implements ApplicationMenu {
             Optional<Spaceship> spaceshipByCriteria = spaceshipService.findSpaceshipByCriteria(spaceshipCriteria);
 
             assignedSpaceShift = spaceshipByCriteria.get();
+            assignedSpaceShift.setReadyForNextMissions(false);
+
             System.out.println(assignedSpaceShift);
             System.out.println();
 

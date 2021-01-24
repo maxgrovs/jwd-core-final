@@ -16,11 +16,11 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
     private Long flightDistance;
     private Boolean isReadyForNextMissions;
 
-    public SpaceshipCriteria(Map<Role, Short> crew, Long flightDistance, Long id) {
+    public SpaceshipCriteria(Map<Role, Short> crew, Long flightDistance, Long id, Boolean isReadyForNextMissions) {
         this.crew = crew;
         this.flightDistance = flightDistance;
         this.id = id;
-        //this.isReadyForNextMissions = isReadyForNextMissions;
+        this.isReadyForNextMissions = isReadyForNextMissions;
     }
 
     public Map<Role, Short> getCrew() {
@@ -40,6 +40,7 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         return isReadyForNextMissions;
     }
 
+
     public static SpaceshipCriteria.Builder builder() {
         return new SpaceshipCriteria.Builder();
     }
@@ -49,6 +50,8 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         private Long id;
         private Map<Role, Short> crew;
         private Long flightDistance;
+    private     Boolean isReadyForNextMissions;
+
 
         public Builder crew(String roleId, String countCrewMember) {
 
@@ -72,11 +75,17 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
             return this;
         }
 
+        public Builder isReadyForNextMissions(Boolean isReadyForNextMissions) {
+            this.isReadyForNextMissions = isReadyForNextMissions;
+            return this;
+        }
+
         public SpaceshipCriteria build() {
             return new SpaceshipCriteria(
                     this.crew,
                     this.flightDistance,
-                    this.id
+                    this.id,
+                    this.isReadyForNextMissions
 
             );
 

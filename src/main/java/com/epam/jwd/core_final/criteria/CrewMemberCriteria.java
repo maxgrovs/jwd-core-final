@@ -13,11 +13,11 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
     private Long rankId;
     private Boolean isReadyForNextMissions;
 
-    public CrewMemberCriteria(Long id, Long roleId, Long rankId) {
+    public CrewMemberCriteria(Long id, Long roleId, Long rankId, Boolean isReadyForNextMissions) {
         this.id = id;
         this.roleId = roleId;
         this.rankId = rankId;
-        // this.isReadyForNextMissions = isReadyForNextMissions;
+        this.isReadyForNextMissions = isReadyForNextMissions;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
         private Long id;
         private Long roleId;
         private Long rankId;
-        // private Boolean isReadyForNextMissions;
+        private Boolean isReadyForNextMissions;
 
 
         public Builder id(Long id) {
@@ -64,12 +64,17 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
             return this;
         }
 
+        public Builder isReadyForNextMissions(Boolean isReadyForNextMissions) {
+            this.isReadyForNextMissions = isReadyForNextMissions;
+            return this;
+        }
+
         public CrewMemberCriteria build() {
             return new CrewMemberCriteria(
                     this.id,
                     this.roleId,
-                    this.rankId
-                    // this.isReadyForNextMissions
+                    this.rankId,
+                    this.isReadyForNextMissions
             );
 
         }

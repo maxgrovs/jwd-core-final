@@ -15,12 +15,16 @@ import com.epam.jwd.core_final.service.MissionService;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import static com.epam.jwd.core_final.domain.MissionResult.*;
+import static java.time.LocalDate.*;
 
 public class NasaMissionService extends BaseEntityService<FlightMission> implements MissionService {
 
@@ -41,10 +45,11 @@ public class NasaMissionService extends BaseEntityService<FlightMission> impleme
         try {
             try (BufferedReader reader = new BufferedReader(new FileReader(baseOfMissions))) {
 
-                missions =   reader.lines()
+                missions = reader.lines()
                         .filter(s -> !s.startsWith("#"))
                         .map(s -> s.split(";"))
                         .map(factory::create)
+                        .map(this::updateSpaceshipDetails)
                         .collect(Collectors.toList());
 
             }
@@ -72,7 +77,6 @@ public class NasaMissionService extends BaseEntityService<FlightMission> impleme
         }
 
 
-
         return missions;
     }
 
@@ -84,9 +88,13 @@ public class NasaMissionService extends BaseEntityService<FlightMission> impleme
     @Override
     public FlightMission updateSpaceshipDetails(FlightMission flightMission) {
 
+        if (now().isAfter(flightMission.getStartDate())) {
 
+            flightMission.setMissionResult(now().isBefore(flightMission.getEndDate()) ? IN_PROGRESS : COMPLETED);
+        }
+       // if ()
 
-        return null;
+        return flightMission;
     }
 
     @Override
@@ -106,5 +114,12 @@ public class NasaMissionService extends BaseEntityService<FlightMission> impleme
             writer.write("\n" + s);
 
         }
+    }
+
+    public void printMissions(List<FlightMission> flightMissions){
+
+        flightMissions.forEach(flightMission ->
+                System.out.println(flightMission.getName() + " - " + flightMission.getMissionResult()));
+
     }
 }

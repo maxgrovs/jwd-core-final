@@ -58,6 +58,11 @@ public class FlightMission extends AbstractBaseEntity {
         return missionResult;
     }
 
+    public void setMissionResult(MissionResult missionResult) {
+        this.missionResult = missionResult;
+    }
+
+
     @Override
     public String toString() {
         /*return "FlightMission{" +

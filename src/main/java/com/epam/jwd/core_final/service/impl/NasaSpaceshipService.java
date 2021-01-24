@@ -28,7 +28,7 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
         } catch (IOException e) {
             e.printStackTrace();
         }
-    return spaceships;
+        return spaceships;
     }
 
 
@@ -42,22 +42,29 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
         List<Spaceship> spaceships = new ArrayList<>();
 
         if (spaceshipCriteria.getFlightDistance() != null) {
-             spaceships = allSpaceships.stream()
+            spaceships = allSpaceships.stream()
                     .filter(spaceship -> spaceship.getFlightDistance() < spaceshipCriteria.getFlightDistance())
                     .collect(Collectors.toList());
         }
 
-        if (spaceshipCriteria.getId() !=null){
+        if (spaceshipCriteria.getId() != null) {
             spaceships = allSpaceships.stream()
                     .filter(spaceship -> spaceship.getId().equals(spaceshipCriteria.getId()))
                     .collect(Collectors.toList());
         }
+        if (spaceshipCriteria.getReadyForNextMissions() != null){
 
-        return spaceships;
+            spaceships = allSpaceships.stream()
+                    .filter(spaceship -> spaceship.getReadyForNextMissions().equals(spaceshipCriteria.getReadyForNextMissions()))
+                    .collect(Collectors.toList());
+
+        }
+
+            return spaceships;
     }
 
     @Override
-    public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria)  {
+    public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria) {
 
         SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
 
@@ -73,7 +80,7 @@ public class NasaSpaceshipService extends BaseEntityService<Spaceship> implement
 
         Optional<Spaceship> spaceship = spaceships.size() != 0 ? Optional.of(spaceships.get(0)) : Optional.empty();
 
-       // System.out.println();
+        // System.out.println();
 
         return spaceship;
     }
